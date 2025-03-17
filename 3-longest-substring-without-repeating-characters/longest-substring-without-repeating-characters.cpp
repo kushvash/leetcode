@@ -2,7 +2,7 @@ class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         
-        int left=0, right=0, n=s.length(), l=0, maxL=0;
+        int left=0, right=0, n=s.size(), l=0, maxL=0;
         set<char> set;
 
 
