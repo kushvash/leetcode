@@ -8,8 +8,9 @@
  */
 class Solution {
 public:
-    ListNode *detectCycle(ListNode *head) {
+    ListNode *detectCycle(ListNode *head){
         ListNode *slow=head, *fast=head;
+
 
         while(fast!=nullptr && fast->next!=nullptr){
             slow=slow->next;
@@ -18,16 +19,15 @@ public:
             if(slow==fast){
                 return findStart(head, slow);
             }
-        }    
+        }
 
         return nullptr;
     }
 
-private:
-    ListNode *findStart(ListNode *head, ListNode *meetPt) {
-        while(head!=meetPt){
+    ListNode *findStart(ListNode *head, ListNode *meet){
+        while(head!=meet){
             head=head->next;
-            meetPt=meetPt->next;
+            meet=meet->next;
         }
 
         return head;
