@@ -10,14 +10,21 @@ public:
             if(nums[i]>0){
                 break;
             }
+            if(i>0 && nums[i]==nums[i-1]){
+                continue;
+            }
             start=i+1;
             end=n-1;
 
             while(start<end) {
                 if(nums[i]+nums[start]+nums[end]==0){
-                    helper.insert({nums[i], nums[start], nums[end]});
+                    ans.push_back({nums[i], nums[start], nums[end]});
                     start++;
                     end--;
+
+                    while(nums[start]==nums[start-1] && start<end){
+                        start++;
+                    }
                 }
                 else if(nums[i]+nums[start]+nums[end]>0){
                     end--;
@@ -26,11 +33,6 @@ public:
                 }
             }
         }
-
-        for(auto it: helper) {
-            ans.push_back(it);
-        }
-
 
         return ans;
     }
