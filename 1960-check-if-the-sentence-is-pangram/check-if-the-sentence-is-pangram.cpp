@@ -1,16 +1,14 @@
 class Solution {
 public:
     bool checkIfPangram(string sentence) {
-        for(char c='a'; c<='z'; c++){
-            bool helper=false;
-            for(char cN:sentence){
-                if(cN==c){
-                    helper=true;
-                    break;
-                }
-            }
+        vector<bool> helper(26, false);
 
-            if(!helper){
+        for(char c: sentence){
+            helper[c-'a']=true;
+        }
+
+        for(int i=0; i<helper.size(); i++){
+            if(!helper[i]){
                 return false;
             }
         }
