@@ -13,12 +13,12 @@ public:
             }
         }
 
-        if(nums.size()==0 || nums[lo]!=target){
+        if(nums.size()==0 || nums[hi]!=target){
             return {-1, -1};
         }
 
         vector<int> ans;
-        ans.push_back(lo);
+        ans.push_back(hi);
 
         lo=0;
         hi=nums.size()-1;
@@ -33,7 +33,7 @@ public:
             }
         }
 
-        ans.push_back(lo);
+        ans.push_back(hi);
 
         return ans;
 
