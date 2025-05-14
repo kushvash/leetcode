@@ -1,14 +1,14 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        int lo=0, hi=matrix.size()-1, mid;
+        int lo=0, hi=matrix.size()-1, mid, n=matrix[0].size()-1;
 
         while(lo<=hi){
             mid=lo+((hi-lo)/2);
 
-            if(matrix[mid][0]==target){
+            if(matrix[mid][n]==target){
                 return true;
-            }else if(matrix[mid][0]>target){
+            }else if(matrix[mid][n]>target){
                 hi=mid-1;
             }else{
                 lo=mid+1;
@@ -16,18 +16,11 @@ public:
         }
 
 
-        int n=hi;
+        n=lo;
 
-        if(hi<0){
+        if(lo>=matrix.size()){
             return false;
         }
-        // if(matrix[n][0]>target){
-        //     return false;
-        // }
-
-        // cout<<n;
-
-        // return true;
 
         lo=0;
         hi=matrix[n].size()-1;
