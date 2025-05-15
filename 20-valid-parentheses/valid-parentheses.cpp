@@ -1,31 +1,24 @@
 class Solution {
 public:
     bool isValid(string s) {
-        stack<char> st;
+        stack<char> helper;
+        unordered_map<char, char> dict={
+            {'}', '{'},
+            {']', '['},
+            {')', '('}
+        };
 
-        for(char c: s) {
-            if(c=='(' || c=='[' || c=='{') {
-                st.push(c);
-            }else {
-                if(st.empty()) {
+        for(char c: s){
+            if(c=='{' || c=='[' || c=='('){
+                helper.push(c);
+            }else{
+                if(helper.empty() || helper.top()!=dict[c]){
                     return false;
                 }
-                char top=st.top();
-
-                if(c==')' && top!='(') {
-                    return false;
-                }
-                if(c==']' && top!='[') {
-                    return false;
-                }
-                if(c=='}' && top!='{') {
-                    return false;
-                }
-
-                st.pop();
+                helper.pop();
             }
         }
 
-        return st.empty();
+        return helper.empty();
     }
 };
