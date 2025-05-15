@@ -30,18 +30,24 @@ public:
         }
 
         // Standard binary search
-        while (lo <= hi) {
+        while (lo < hi) {
             int mid = lo + (hi - lo) / 2;
-            if (nums[mid] == target) {
-                return mid;
-            } else if (nums[mid] < target) {
-                lo = mid + 1;
-            } else {
-                hi = mid - 1;
+            
+            if(nums[mid]>=target){
+                hi=mid;
+            }else{
+                lo=mid+1;
             }
+
+        }
+
+        if(nums[lo]==target){
+            return lo;
         }
 
         return -1; // Not found
+
+
 
     }
 };
