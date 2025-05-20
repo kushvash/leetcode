@@ -32,12 +32,12 @@ public:
 
         for(int i=0; i<board.size(); i++) {
             for(int j=0; j<board[0].size(); j++) {
-                if(board[i][j]==word[0]) {
+                // if(board[i][j]==word[0]) {
                     res = existHelper(board, visited, word, 0, i, j);
                     if(res){
                         return true;
                     }
-                }
+                // }
             }
         }
 
