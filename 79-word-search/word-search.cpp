@@ -24,9 +24,9 @@ public:
     }
 
     bool exist(vector<vector<char>>& board, string word) {
-        if(word.size()>(board.size()*board[0].size())){
-            return false;
-        }
+        // if(word.size()>(board.size()*board[0].size())){
+        //     return false;
+        // }
         vector<vector<bool>> visited(board.size(), vector<bool>(board[0].size(), false));
         bool res=false;
 
