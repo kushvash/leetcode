@@ -13,24 +13,20 @@ public:
             return {};
         }
 
-        vector<vector<int>> ans1, ans2, ans;
+        vector<vector<int>> temp, ans;
         
-        //including current element
-        ans1 = combinationSumHelper(candidates, start, target-candidates[start]);
+        for(int i=start; i<candidates.size(); i++){
+            // if(candidates[i]>target){
+            //     break;
+            // }
 
-        for(int i=0; i<ans1.size(); i++){
-            ans1[i].push_back(candidates[start]);
-        }
+            temp=combinationSumHelper(candidates, i, target-candidates[i]);
 
-        //excluding current element
-        ans2 = combinationSumHelper(candidates, start+1, target);
-        
-        for(int i=0; i<ans1.size(); i++){
-            ans.push_back(ans1[i]);
-        }
+            for(auto j: temp){
+                j.push_back(candidates[i]);
+                ans.push_back(j);
+            }
 
-        for(int i=0; i<ans2.size(); i++){
-            ans.push_back(ans2[i]);
         }
 
         return ans;
