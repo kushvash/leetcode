@@ -1,6 +1,7 @@
 class Solution {
 public:    
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
         return combinationSumHelper(candidates, 0, target);
     }
 
@@ -16,9 +17,9 @@ public:
         vector<vector<int>> temp, ans;
         
         for(int i=start; i<candidates.size(); i++){
-            // if(candidates[i]>target){
-            //     break;
-            // }
+            if(candidates[i]>target){
+                break;
+            }
 
             temp=combinationSumHelper(candidates, i, target-candidates[i]);
 
