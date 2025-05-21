@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void subsetsHelper(vector<int>& nums, vector<int> currSet , int start, vector<vector<int>>& res) {
+    void subsetsHelper(vector<int>& nums, vector<int>& currSet , int start, vector<vector<int>>& res) {
         // base case
         if(start==nums.size()) {
             res.push_back(currSet);
@@ -23,7 +23,9 @@ public:
     vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>> res;
 
-        subsetsHelper(nums, {}, 0, res);
+        vector<int> currSet;
+
+        subsetsHelper(nums, currSet, 0, res);
 
         return res;
     }
