@@ -14,51 +14,41 @@ public:
 
     
 
-    void solveNQueensHelper(int n, int i, vector<vector<char>>& currSet, vector<bool>& safeRow, vector<bool>& safeCol, vector<bool>& safeD1, vector<bool>& safeD2, vector<vector<string>>& res) {
+    void solveNQueensHelper(int n, int i, vector<string>& currSet, vector<bool>& safeRow, vector<bool>& safeCol, vector<bool>& safeD1, vector<bool>& safeD2, vector<vector<string>>& res) {
         // base case
-        if(n==i){
-            vector<string> temp;
+        if(n==i) {
+            res.push_back(currSet);
 
-            for(vector<char> v: currSet) {
-                string tempS;
-                for(char c: v) {
-                    tempS.push_back(c);
-                }
-                temp.push_back(tempS);
-            }
-
-            res.push_back(temp);
+            return;
         }
 
+        // recursive step
+        for(int j=0; j<n; j++) {
+            if(checkSafety(n, i, j, safeRow, safeCol, safeD1, safeD2)){
+                safeRow[i]=true;
+                safeCol[j]=true;
+                safeD1[i-j+n-1]=true;
+                safeD2[i+j]=true;
 
-        // for(int i=0; i<n; i++){
-            for(int j=0; j<n; j++){
-                if(checkSafety(n, i, j, safeRow, safeCol, safeD1, safeD2)){
-                    safeRow[i]=true;
-                    safeCol[j]=true;
-                    safeD1[i-j+n-1]=true;
-                    safeD2[i+j]=true;
+                currSet[i][j]='Q';
 
-                    currSet[i][j]='Q';
+                solveNQueensHelper(n, i+1, currSet, safeRow, safeCol, safeD1, safeD2, res);
 
-                    solveNQueensHelper(n, i+1, currSet, safeRow, safeCol, safeD1, safeD2, res);
+                safeRow[i]=false;
+                safeCol[j]=false;
+                safeD1[i-j+n-1]=false;
+                safeD2[i+j]=false;
 
-                    safeRow[i]=false;
-                    safeCol[j]=false;
-                    safeD1[i-j+n-1]=false;
-                    safeD2[i+j]=false;
-
-                    currSet[i][j]='.';
-                }
-            // }
+                currSet[i][j]='.';
+            }
         }
 
 
     }
 
     vector<vector<string>> solveNQueens(int n) {
-        vector<vector<char>> currSet(n, vector<char> (n, '.'));
-        
+        vector<string> currSet(n, string(n,'.'));
+
         vector<bool> safeRow(n, false); 
         vector<bool> safeCol(n, false); 
         vector<bool> safeD1(2*n-1, false); 
