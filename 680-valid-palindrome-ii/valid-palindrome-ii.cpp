@@ -15,14 +15,9 @@ public:
 
     bool validPalindrome(string s) {
         int l=0, r=s.size()-1;
-        bool mistake=false;
 
         while(l<r) {
             if(s[l]!=s[r]){
-                // if(mistake){
-                //     return false;
-                // }
-                // mistake=true;
                 return (validPalindromeHelper(s, l, r-1) || validPalindromeHelper(s, l+1, r));
             }else{
                 l++;
