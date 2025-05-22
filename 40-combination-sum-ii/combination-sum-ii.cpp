@@ -10,17 +10,27 @@ public:
         }
 
         //excluding element
-        int i=start;
-        while(i<candidates.size() && (i==start || candidates[i]==candidates[i-1])){
-            i++;
-        }
-        combinationSumHelper(candidates, i, currSet, target, res);
+        // int i=start;
+        // while(i<candidates.size() && (i==start || candidates[i]==candidates[i-1])){
+        //     i++;
+        // }
+        // combinationSumHelper(candidates, i, currSet, target, res);
         
 
-        //including element
-        currSet.push_back(candidates[start]);
-        combinationSumHelper(candidates, start+1, currSet, target-candidates[start], res);
-        currSet.pop_back();
+        // //including element
+        // currSet.push_back(candidates[start]);
+        // combinationSumHelper(candidates, start+1, currSet, target-candidates[start], res);
+        // currSet.pop_back();
+
+
+        for(int i=start; i<candidates.size(); i++){
+            if(i!=start && candidates[i]==candidates[i-1]){
+                continue;
+            }
+            currSet.push_back(candidates[i]);
+            combinationSumHelper(candidates, i+1, currSet, target-candidates[i], res);
+            currSet.pop_back();
+        }
 
         return;
     }
