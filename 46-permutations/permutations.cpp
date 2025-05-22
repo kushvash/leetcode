@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void permuteHelper(vector<int>& nums, vector<bool>& visited, vector<vector<int>>& res, vector<int> currSet) {
+    void permuteHelper(vector<int>& nums, vector<bool>& visited, vector<vector<int>>& res, vector<int>& currSet) {
         if(currSet.size()==nums.size()){
             res.push_back(currSet);
             return;
@@ -24,8 +24,9 @@ public:
     vector<vector<int>> permute(vector<int>& nums) {
         vector<bool> visited(nums.size(), false);
         vector<vector<int>> res;
+        vector<int> currSet;
 
-        permuteHelper(nums, visited, res, {});
+        permuteHelper(nums, visited, res, currSet);
 
         return res;
     }
