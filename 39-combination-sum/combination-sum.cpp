@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void combinationSumHelper(vector<int> candidates, vector<int>& currSet, int start, int target, vector<vector<int>>& res) {
+    void combinationSumHelper(vector<int>& candidates, vector<int>& currSet, int start, int target, vector<vector<int>>& res) {
         if(target==0){
             res.push_back(currSet);
             return;
