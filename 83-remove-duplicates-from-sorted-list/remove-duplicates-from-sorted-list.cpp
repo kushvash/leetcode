@@ -11,14 +11,15 @@
 class Solution {
 public:
     void deleteDuplicatesHelper(ListNode* curr,ListNode* prevN) {
-        if(curr==nullptr){
-            return;
-        }
+        if (!curr) return;
 
-        if(curr->val==prevN->val){
-            prevN->next=curr->next;
-            deleteDuplicatesHelper(curr->next, prevN);
-        }else{
+        if (curr->val == prevN->val) {
+            ListNode* nextNode = curr->next;
+            prevN->next = nextNode;
+            delete curr;
+            deleteDuplicatesHelper(nextNode, prevN);
+            
+        } else {
             deleteDuplicatesHelper(curr->next, prevN->next);
         }
 
