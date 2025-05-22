@@ -1,7 +1,7 @@
 class Solution {
 public:
-    bool checkSafety(int n, int i, int j, vector<bool>& safeRow, vector<bool>& safeCol, vector<bool>& safeD1, vector<bool>& safeD2) {
-        if(safeRow[i] || safeCol[j]){
+    bool checkSafety(int n, int i, int j, vector<bool>& safeCol, vector<bool>& safeD1, vector<bool>& safeD2) {
+        if(safeCol[j]){
             return false;
         }
 
@@ -14,7 +14,7 @@ public:
 
     
 
-    void solveNQueensHelper(int n, int i, vector<string>& currSet, vector<bool>& safeRow, vector<bool>& safeCol, vector<bool>& safeD1, vector<bool>& safeD2, vector<vector<string>>& res) {
+    void solveNQueensHelper(int n, int i, vector<string>& currSet, vector<bool>& safeCol, vector<bool>& safeD1, vector<bool>& safeD2, vector<vector<string>>& res) {
         // base case
         if(n==i) {
             res.push_back(currSet);
@@ -24,17 +24,15 @@ public:
 
         // recursive step
         for(int j=0; j<n; j++) {
-            if(checkSafety(n, i, j, safeRow, safeCol, safeD1, safeD2)){
-                safeRow[i]=true;
+            if(checkSafety(n, i, j, safeCol, safeD1, safeD2)){
                 safeCol[j]=true;
                 safeD1[i-j+n-1]=true;
                 safeD2[i+j]=true;
 
                 currSet[i][j]='Q';
 
-                solveNQueensHelper(n, i+1, currSet, safeRow, safeCol, safeD1, safeD2, res);
+                solveNQueensHelper(n, i+1, currSet, safeCol, safeD1, safeD2, res);
 
-                safeRow[i]=false;
                 safeCol[j]=false;
                 safeD1[i-j+n-1]=false;
                 safeD2[i+j]=false;
@@ -49,14 +47,13 @@ public:
     vector<vector<string>> solveNQueens(int n) {
         vector<string> currSet(n, string(n,'.'));
 
-        vector<bool> safeRow(n, false); 
         vector<bool> safeCol(n, false); 
         vector<bool> safeD1(2*n-1, false); 
         vector<bool> safeD2(2*n-1, false);
 
         vector<vector<string>> res;
 
-        solveNQueensHelper(n, 0, currSet, safeRow, safeCol, safeD1, safeD2, res);
+        solveNQueensHelper(n, 0, currSet, safeCol, safeD1, safeD2, res);
 
 
         return res;
