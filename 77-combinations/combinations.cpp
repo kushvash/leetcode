@@ -9,19 +9,19 @@ public:
             return;
         }
 
-        // // excluding currNum
-        // combineHelper(n, k, currNum+1, currSet, res);
-        // // including currNum
-        // currSet.push_back(currNum);
-        // combineHelper(n, k, currNum+1, currSet, res);
-        // currSet.pop_back();
+        // excluding currNum
+        combineHelper(n, k, currNum+1, currSet, res);
+        // including currNum
+        currSet.push_back(currNum);
+        combineHelper(n, k, currNum+1, currSet, res);
+        currSet.pop_back();
 
 
-        for(int i=currNum; i<=n; i++) {
-            currSet.push_back(i);
-            combineHelper(n, k, i+1, currSet, res);
-            currSet.pop_back();
-        }
+        // for(int i=currNum; i<=n; i++) {
+        //     currSet.push_back(i);
+        //     combineHelper(n, k, i+1, currSet, res);
+        //     currSet.pop_back();
+        // }
 
 
         return;
