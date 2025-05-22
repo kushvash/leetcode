@@ -1,19 +1,5 @@
 class Solution {
 public:
-    bool checkSafety(int n, int i, int j, vector<bool>& safeCol, vector<bool>& safeD1, vector<bool>& safeD2) {
-        if(safeCol[j]){
-            return false;
-        }
-
-        if(safeD1[i-j+n-1] || safeD2[i+j]){
-            return false;
-        }
-
-        return true;
-    }
-
-    
-
     void solveNQueensHelper(int n, int i, vector<string>& currSet, vector<bool>& safeCol, vector<bool>& safeD1, vector<bool>& safeD2, vector<vector<string>>& res) {
         // base case
         if(n==i) {
@@ -24,21 +10,26 @@ public:
 
         // recursive step
         for(int j=0; j<n; j++) {
-            if(checkSafety(n, i, j, safeCol, safeD1, safeD2)){
-                safeCol[j]=true;
-                safeD1[i-j+n-1]=true;
-                safeD2[i+j]=true;
 
-                currSet[i][j]='Q';
+            int d1 = i - j + n - 1, d2 = i + j;
 
-                solveNQueensHelper(n, i+1, currSet, safeCol, safeD1, safeD2, res);
+            if (safeCol[j] || safeD1[d1] || safeD2[d2]) 
+                continue;
+        
+            safeCol[j]=true;
+            safeD1[i-j+n-1]=true;
+            safeD2[i+j]=true;
 
-                safeCol[j]=false;
-                safeD1[i-j+n-1]=false;
-                safeD2[i+j]=false;
+            currSet[i][j]='Q';
 
-                currSet[i][j]='.';
-            }
+            solveNQueensHelper(n, i+1, currSet, safeCol, safeD1, safeD2, res);
+
+            safeCol[j]=false;
+            safeD1[i-j+n-1]=false;
+            safeD2[i+j]=false;
+
+            currSet[i][j]='.';
+            
         }
 
 
