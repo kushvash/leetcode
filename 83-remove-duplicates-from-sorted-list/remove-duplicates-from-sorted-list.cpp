@@ -10,27 +10,29 @@
  */
 class Solution {
 public:
+    void deleteDuplicatesHelper(ListNode* curr,ListNode* prevN) {
+        if(curr==nullptr){
+            return;
+        }
+
+        if(curr->val==prevN->val){
+            prevN->next=curr->next;
+            deleteDuplicatesHelper(curr->next, prevN);
+        }else{
+            deleteDuplicatesHelper(curr->next, prevN->next);
+        }
+
+        return;
+    }
+
     ListNode* deleteDuplicates(ListNode* head) {
-        if(head==nullptr || head->next==nullptr){
+        if(head==nullptr){
             return head;
         }
+        ListNode *curr=head->next, *prevN=head;
 
-        ListNode *temp=head->next, *record=head;
-
-        while(temp!=nullptr){
-            if(temp->val==record->val){
-                temp=temp->next;
-            }else{
-                record->next=temp;
-
-                record=record->next;
-            }
-        }
-
-        record->next=nullptr;
+        deleteDuplicatesHelper(curr, prevN);
 
         return head;
-
-
     }
 };
