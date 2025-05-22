@@ -24,20 +24,16 @@ public:
     }
 
     bool exist(vector<vector<char>>& board, string word) {
-        // if(word.size()>(board.size()*board[0].size())){
-        //     return false;
-        // }
+        
         vector<vector<bool>> visited(board.size(), vector<bool>(board[0].size(), false));
         bool res=false;
 
         for(int i=0; i<board.size(); i++) {
             for(int j=0; j<board[0].size(); j++) {
-                // if(board[i][j]==word[0]) {
-                    res = existHelper(board, visited, word, 0, i, j);
-                    if(res){
-                        return true;
-                    }
-                // }
+                res = existHelper(board, visited, word, 0, i, j);
+                if(res){
+                    return true;
+                }
             }
         }
 
