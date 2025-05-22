@@ -14,10 +14,9 @@ public:
         if (!curr) return;
 
         if (curr->val == prevN->val) {
-            ListNode* nextNode = curr->next;
-            prevN->next = nextNode;
+            prevN->next = curr->next;
             delete curr;
-            deleteDuplicatesHelper(nextNode, prevN);
+            deleteDuplicatesHelper(prevN->next, prevN);
             
         } else {
             deleteDuplicatesHelper(curr->next, prevN->next);
