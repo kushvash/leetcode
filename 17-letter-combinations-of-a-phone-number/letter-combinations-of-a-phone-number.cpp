@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void letterCombinationsHelper(string digits, int start, string currSet, vector<string>& res) {
+    void letterCombinationsHelper(string& digits, int start, string& currSet, vector<string>& res) {
         if(start==digits.size()){
             if(currSet.size()>0){
                 res.push_back(currSet);
@@ -30,7 +30,10 @@ public:
     
     vector<string> letterCombinations(string digits) {
         vector<string> res;
-        letterCombinationsHelper(digits, 0, {}, res);
+        
+        string currSet="";
+
+        letterCombinationsHelper(digits, 0, currSet, res);
 
         return res;
     }
