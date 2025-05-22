@@ -26,12 +26,11 @@ public:
     bool exist(vector<vector<char>>& board, string word) {
         
         vector<vector<bool>> visited(board.size(), vector<bool>(board[0].size(), false));
-        bool res=false;
+        // bool res=false;
 
         for(int i=0; i<board.size(); i++) {
             for(int j=0; j<board[0].size(); j++) {
-                res = existHelper(board, visited, word, 0, i, j);
-                if(res){
+                if(existHelper(board, visited, word, 0, i, j)){
                     return true;
                 }
             }
