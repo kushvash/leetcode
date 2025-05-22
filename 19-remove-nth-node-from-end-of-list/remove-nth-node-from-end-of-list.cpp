@@ -31,7 +31,7 @@ public:
         ListNode* nodeToDelete = slow->next;
         slow->next = slow->next->next;
         delete nodeToDelete; // only if you're not using a GC environment
-
+        
         return dummy.next;
     }
 };
