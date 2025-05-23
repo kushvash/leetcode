@@ -12,16 +12,14 @@ public:
     int guessNumber(int n) {
         int lo=1, hi=n, mid;
 
-        while(lo<=hi){
+        while(lo<hi){
             mid=lo+(hi-lo)/2;
 
             int res = guess(mid);
-            if(res==-1){
-                hi=mid-1;
-            }else if(res==1){
-                lo=mid+1;
+            if(res<=0) {
+                hi=mid;
             }else{
-                return mid;
+                lo=mid+1;
             }
         }
 
