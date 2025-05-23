@@ -9,7 +9,9 @@ public:
         for(int i: nums){
             currSum+=i;
 
-            count+=record[currSum-k];
+            if(record.find(currSum-k)!=record.end()){
+                count+=record[currSum-k];
+            }
 
             record[currSum]++;
         }
