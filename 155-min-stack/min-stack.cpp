@@ -3,6 +3,7 @@ public:
     MinStack() {
         
     }
+    
     stack<int> s;
     stack<int> minStack;
 
@@ -13,7 +14,6 @@ public:
         }else{
             minStack.push(min(val, minStack.top()));
         }
-
     }
     
     void pop() {
