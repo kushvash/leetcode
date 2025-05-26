@@ -1,44 +1,45 @@
 class TimeMap {
-    
-
 public:
     TimeMap() {
         
     }
+    unordered_map<string, vector<pair<string, int>>> record;
 
-    unordered_map<string, vector<pair<int, string>>> record;
-    
     void set(string key, string value, int timestamp) {
-        record[key].push_back({timestamp, value});
-        return;    
+        record[key].push_back({value, timestamp});    
+        return;
     }
     
-    string get(string key, int timestamp) {
-        auto it = record.find(key);
-        if (it == record.end() || it->second.empty()){
-            return "";
+    pair<string, int> findBinary(vector<pair<string, int>>& curr, int& timestamp){
+        int lo=0, hi=curr.size()-1, mid;
+
+        if(curr[lo].second>timestamp){
+            return {"", 0};
+        }else if(curr[hi].second<timestamp){
+            return curr[hi];
         }
 
-        auto &currV = it->second;
-
-        int n = (int)currV.size();
-        int lo = 0, hi = n - 1, mid;
-
-        if (currV[0].first > timestamp){
-            return "";
-        }
-        
         while(lo<hi){
             mid=lo+(hi-lo+1)/2;
 
-            if(currV[mid].first>timestamp){
+            if(curr[mid].second>timestamp){
                 hi=mid-1;
             }else{
                 lo=mid;
             }
         }
 
-        return currV[lo].second;
+        return curr[lo];
+    }
+
+    string get(string key, int timestamp) {
+        if(record.find(key)==record.end()){
+            return ""; 
+        }
+
+        pair<string, int> ans = findBinary(record[key], timestamp);
+
+        return ans.first;
     }
 };
 
