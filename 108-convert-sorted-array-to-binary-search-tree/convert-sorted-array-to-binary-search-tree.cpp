@@ -15,7 +15,7 @@ public:
         if(start>end){
             return nullptr;
         }
-        int mid=start+(end-start)/2;
+        int mid=start+(end-start+1)/2;
 
         TreeNode *root = new TreeNode(nums[mid]);
 
