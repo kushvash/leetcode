@@ -18,12 +18,8 @@ public:
 
         int leftH=isBalancedHelper(root->left);
         int rightH=isBalancedHelper(root->right);
-        int diff=leftH-rightH;
-        if(diff<0){
-            diff*=-1;
-        }
-
-        if(leftH==-1 || rightH==-1 || diff>1){
+       
+        if(leftH==-1 || rightH==-1 || abs(leftH-rightH)>1){
             return -1;
         }
 
