@@ -37,14 +37,10 @@ public:
             
             if (l1) {
                 l1 = l1->next;
-            } else {
-                l1 = nullptr;
             }
 
             if (l2) {
                 l2 = l2->next;
-            } else {
-                l2 = nullptr;
             }
         }
 
