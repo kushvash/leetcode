@@ -12,15 +12,14 @@
 class Solution {
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        // If one is null but other is not
-        if(p || q){
-            if((!p) || (!q)){
-                return false;
-            }
-        }
         // If both are null
-        if(!(p && q)){
+        if (!p && !q){
             return true;
+        } 
+
+        // If one is null but other is not
+        if(!p || !q){
+            return false;
         }
 
         // If the values are diff
