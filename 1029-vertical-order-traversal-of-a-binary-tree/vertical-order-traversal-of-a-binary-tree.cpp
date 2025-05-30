@@ -31,9 +31,9 @@ public:
 
         vector<vector<int>> ans;
 
-        for (auto [col, rows] : res) {
+        for (auto& [col, rows] : res) {
             vector<int> colVals;
-            for (auto [row, vals] : rows) {
+            for (auto& [row, vals] : rows) {
                 sort(vals.begin(), vals.end());
                 colVals.insert(colVals.end(), vals.begin(), vals.end());
             }
