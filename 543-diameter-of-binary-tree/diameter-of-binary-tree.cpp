@@ -16,19 +16,20 @@ public:
             return 0;
         }
 
-        int leftMax=diameterOfBinaryTreeHelper(root->left, maxL);
-        int rightMax=diameterOfBinaryTreeHelper(root->right, maxL);
+        int left=diameterOfBinaryTreeHelper(root->left, maxL);
+        int right=diameterOfBinaryTreeHelper(root->right, maxL);
 
-        maxL=max(maxL, leftMax+rightMax);
-
-        return 1 + max(leftMax, rightMax);
+        maxL=max(maxL, left+right);
+        
+        return 1 + max(left, right);
 
     }
+
     int diameterOfBinaryTree(TreeNode* root) {
         int maxL=0;
 
-        diameterOfBinaryTreeHelper(root, maxL);       
-
-        return maxL; 
+        diameterOfBinaryTreeHelper(root, maxL); 
+        
+        return maxL;
     }
 };
