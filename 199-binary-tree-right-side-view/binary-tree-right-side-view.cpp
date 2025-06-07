@@ -28,7 +28,6 @@ public:
             for(int i=0; i<n; i++){
                 TreeNode* temp=helper.front();
                 helper.pop();
-                tempArr.push_back(temp->val);
 
                 if(temp->left){
                     helper.push(temp->left);
@@ -36,9 +35,10 @@ public:
                 if(temp->right){
                     helper.push(temp->right);
                 }
-            }
 
-            ans.push_back(tempArr[n-1]);
+                if (i == n - 1) 
+                ans.push_back(temp->val);
+            }
         }
 
         return ans;
