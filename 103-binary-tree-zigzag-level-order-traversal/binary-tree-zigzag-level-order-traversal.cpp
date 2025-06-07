@@ -44,11 +44,7 @@ public:
 
             }    
 
-            if(ifRev){
-                ifRev=false;
-            }else{
-                ifRev=true;
-            }
+            ifRev=!ifRev;
 
             ans.push_back(currLevel);
         }
