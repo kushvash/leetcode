@@ -23,32 +23,23 @@ public:
             return nullptr;
         }
 
-        queue<Node*> q;
+        Node* leftmost=root;
 
-        q.push(root);
+        while(leftmost->left){
+            Node* head=leftmost;
 
-        while(!q.empty()){
-            int n=q.size();
-
-            for(int i=0; i<n; i++){
-                Node* temp=q.front();
-
-                q.pop();
-
-                if (i < n - 1){
-                    temp->next = q.front();
+            while(head){
+                head->left->next=head->right;
+                if(head->next){
+                    head->right->next=head->next->left;
                 }else{
-                    temp->next = nullptr;
+                    head->right->next=nullptr;
                 }
 
-
-                if(temp->left){
-                    q.push(temp->left);
-                }
-                if(temp->right){
-                    q.push(temp->right);
-                }                
+                head=head->next;
             }
+
+            leftmost=leftmost->left;
         }
 
         return root;
