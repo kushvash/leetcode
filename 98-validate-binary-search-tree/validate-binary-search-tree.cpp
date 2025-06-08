@@ -23,7 +23,7 @@ public:
             return false;
         }
 
-        return (isValidBSTHelper(node->left, node->val, currMin) && isValidBSTHelper(node->right, currMax, node->val));
+        return isValidBSTHelper(node->left, node->val, currMin) && isValidBSTHelper(node->right, currMax, node->val);
     }
 
     bool isValidBST(TreeNode* root) {
