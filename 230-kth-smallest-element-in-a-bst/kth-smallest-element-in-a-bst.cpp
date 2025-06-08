@@ -19,6 +19,8 @@ public:
         kthSmallestHelper(node->left, k, arr);
         if(arr.size()<k){
             arr.push_back(node->val);
+        }else{
+            return;
         }
         kthSmallestHelper(node->right, k, arr);
     }
