@@ -46,7 +46,7 @@ public:
         for (char c : data) {
             if (c == ',') {
                 tokens.push(token);
-                token.clear();
+                token="";
             } else {
                 token.push_back(c);
             }
