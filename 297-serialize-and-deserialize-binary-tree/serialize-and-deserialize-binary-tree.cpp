@@ -42,10 +42,19 @@ public:
     TreeNode* deserialize(string data) {
         queue<string> tokens;
         string token;
-        stringstream ss(data);
-        while (getline(ss, token, ',')) {
+        
+        for (char c : data) {
+            if (c == ',') {
+                tokens.push(token);
+                token.clear();
+            } else {
+                token.push_back(c);
+            }
+        }
+        if (!token.empty()) {
             tokens.push(token);
         }
+
         return deserializeHelper(tokens);
     }
 };
