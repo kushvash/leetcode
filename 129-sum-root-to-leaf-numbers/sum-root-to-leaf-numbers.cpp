@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    void sumNumbersHelper(TreeNode* node, int currNum, int& sum) {
+    void sumNumbersHelper(TreeNode* node, int currNum, int& sum){
         currNum*=10;
         currNum+=node->val;
 
@@ -19,19 +19,20 @@ public:
             sum+=currNum;
             return;
         }
-        
 
         if(node->left){
             sumNumbersHelper(node->left, currNum, sum);
         }
-
         if(node->right){
             sumNumbersHelper(node->right, currNum, sum);
         }
+
+        return;
     }
 
     int sumNumbers(TreeNode* root) {
         int sum=0;
+
         sumNumbersHelper(root, 0, sum);
 
         return sum;
