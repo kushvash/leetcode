@@ -15,8 +15,14 @@ public:
         if(!node){
             return 0;
         }
-        int l=max(maxPathSumHelper(node->left, maxS), 0);
-        int r=max(maxPathSumHelper(node->right, maxS), 0);
+        int l=maxPathSumHelper(node->left, maxS);
+        int r=maxPathSumHelper(node->right, maxS);
+        if(l<0){
+            l=0;
+        }
+        if(r<0){
+            r=0;
+        }
 
         maxS=max(maxS, l+r+node->val);
 
