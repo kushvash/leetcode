@@ -11,35 +11,34 @@
  */
 class Solution {
 public:
-    void verticalTraversalHelper(TreeNode* root, int row, int col, map<int, map<int, vector<int>>>& res) {
-        if(!root){
+    void verticalTraversalHelper(TreeNode* node, map<int, map<int, vector<int>>>& columns, int currCol, int currRow){
+        if(!node){
             return;
         }
-        
-        res[col][row].push_back(root->val);
 
-        verticalTraversalHelper(root->left, row+1, col-1, res);
-        verticalTraversalHelper(root->right, row+1, col+1, res);
+        columns[currCol][currRow].push_back(node->val);
 
-        return;
+        verticalTraversalHelper(node->left, columns, currCol-1, currRow+1);
+
+        verticalTraversalHelper(node->right, columns, currCol+1, currRow+1);
     }
 
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        map<int, map<int, vector<int>>> res;
-
-        verticalTraversalHelper(root, 0, 0, res);
-
+        map<int, map<int, vector<int>>> columns;
+        verticalTraversalHelper(root, columns, 0, 0);
         vector<vector<int>> ans;
 
-        for (auto& [col, rows] : res) {
+        for(auto& i1: columns){
             vector<int> colVals;
-            for (auto& [row, vals] : rows) {
-                sort(vals.begin(), vals.end());
-                colVals.insert(colVals.end(), vals.begin(), vals.end());
-            }
-            ans.push_back(move(colVals));
-        }
-        return ans;
 
+            for(auto& i2: i1.second){
+                sort(i2.second.begin(), i2.second.end());
+                colVals.insert(colVals.end(), i2.second.begin(), i2.second.end());
+            }
+            ans.push_back(colVals);
+
+        }    
+
+        return ans;
     }
 };
