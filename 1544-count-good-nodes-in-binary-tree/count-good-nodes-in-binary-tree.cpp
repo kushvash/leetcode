@@ -11,24 +11,27 @@
  */
 class Solution {
 public:
-    void goodNodesHelper(TreeNode* node, int maxV, int& count) {
+    int goodNodesHelper(TreeNode* node, int maxV) {
         if(!node){
-            return;
+            return 0;
         }
 
+        int count=0;
         if(node->val>=maxV){
             maxV=node->val;
             count++;
         }
 
-        goodNodesHelper(node->left, maxV, count);
-        goodNodesHelper(node->right, maxV, count);
+        count+=goodNodesHelper(node->left, maxV);
+        count+=goodNodesHelper(node->right, maxV);
+
+        return count;
     }
 
     int goodNodes(TreeNode* root) {
-        int count=0;
-        goodNodesHelper(root, root->val, count);
-
-        return count;
+        if(!root){
+            return 0;
+        }
+        return goodNodesHelper(root, root->val);
     }
 };
