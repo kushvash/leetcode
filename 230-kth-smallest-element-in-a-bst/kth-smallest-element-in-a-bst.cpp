@@ -11,23 +11,30 @@
  */
 class Solution {
 public:
-    void kthSmallestHelper(TreeNode* node, int& count, int& ans){
-        if(count==0 || !node){
+    void kthSmallestHelper(TreeNode* node, int k, int& i, int& ans){
+        if(!node || ans!=-1){
             return;
         }
 
-        kthSmallestHelper(node->left, count, ans);
-        count--;
-        if(count==0){
+
+        kthSmallestHelper(node->left, k, i, ans);
+
+        i++;
+        if(i==k){
             ans=node->val;
             return;
         }
-        kthSmallestHelper(node->right, count, ans);
+
+        kthSmallestHelper(node->right, k, i, ans);
+
     }
 
-    int kthSmallest(TreeNode* root, int k) {
-        int ans=0;
-        kthSmallestHelper(root, k, ans);
+
+    int kthSmallest(TreeNode* root, int k){
+        int i=0;
+        int ans=-1;
+        kthSmallestHelper(root, k, i, ans);
+
         return ans;
     }
 };
