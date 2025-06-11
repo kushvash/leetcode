@@ -11,27 +11,23 @@
  */
 class Solution {
 public:
-    void findTargetHelper(TreeNode* node, int& k, unordered_set<int>& record, bool& found){
-        if(!node || found){
-            return;
+    bool findTargetHelper(TreeNode* node, int k, unordered_set<int>& record){
+        if(!node){
+            return false;
         }
 
         if(record.find(k-node->val)!=record.end()){
-            found=true;
-            return;
+            return true;
         }
 
         record.insert(node->val);
 
-        findTargetHelper(node->left, k, record, found);
-        findTargetHelper(node->right, k, record, found);
+        return findTargetHelper(node->left, k, record) || findTargetHelper(node->right, k, record);
     }
     bool findTarget(TreeNode* root, int k) {
-        bool found=false;
         unordered_set<int> record;
 
-        findTargetHelper(root, k, record, found);
+        return findTargetHelper(root, k, record);
 
-        return found;
     }
 };
