@@ -22,9 +22,8 @@ public:
 
         invertTreeHelper(node->left);
         invertTreeHelper(node->right);
-
-        return;
     }
+
     TreeNode* invertTree(TreeNode* root) {
         invertTreeHelper(root);
 
