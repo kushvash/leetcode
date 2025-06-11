@@ -24,6 +24,9 @@ public:
     }
 
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        if(!subRoot){
+            return true;
+        }
         if(!root){
             return false;
         }
