@@ -39,6 +39,6 @@ public:
             return ans;
         }
 
-        return ans;
+        return 0;
     }
 };
