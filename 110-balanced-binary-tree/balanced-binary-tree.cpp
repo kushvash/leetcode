@@ -11,22 +11,26 @@
  */
 class Solution {
 public:
-    int isBalancedHelper(TreeNode* root) {
-        if(!root){
+    int isBalancedHelper(TreeNode* node, bool& record) {
+        if(!node || !record){
             return 0;
-        } 
-
-        int leftH=isBalancedHelper(root->left);
-        int rightH=isBalancedHelper(root->right);
-       
-        if(leftH==-1 || rightH==-1 || abs(leftH-rightH)>1){
-            return -1;
         }
 
-        return 1 + max(leftH, rightH);
+        int l=1+isBalancedHelper(node->left, record), r=1+isBalancedHelper(node->right, record);
+
+        if(l-r>1 || l-r<-1){
+            record=false;
+            return 0;
+        }
+
+        return max(l, r);
     }
 
     bool isBalanced(TreeNode* root) {
-        return isBalancedHelper(root)!=-1;
+        bool record=true; 
+
+        isBalancedHelper(root, record);
+
+        return record;   
     }
 };
