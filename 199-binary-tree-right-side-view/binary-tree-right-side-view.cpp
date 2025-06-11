@@ -24,7 +24,6 @@ public:
 
         while(!q.empty()){
             int n=q.size();
-            vector<int> currL;
 
             for(int i=0; i<n; i++){
                 TreeNode* temp = q.front();
