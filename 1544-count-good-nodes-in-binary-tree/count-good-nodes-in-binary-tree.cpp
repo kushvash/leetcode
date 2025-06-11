@@ -29,9 +29,6 @@ public:
     }
 
     int goodNodes(TreeNode* root) {
-        if(!root){
-            return 0;
-        }
         return goodNodesHelper(root, root->val);
     }
 };
