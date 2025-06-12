@@ -5,7 +5,7 @@ public:
 
         for (auto& point : points) {
             int x = point[0], y = point[1];
-            int dist = x * x + y * y;
+            int dist = x*x + y*y;
 
             maxHeap.push({dist, point});
 
