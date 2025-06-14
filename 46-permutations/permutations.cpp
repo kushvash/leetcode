@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void permuteHelper(vector<int>& nums, vector<bool>& record, vector<int>& curr, vector<vector<int>>& res) {
+    void permuteHelper(vector<int>& nums, vector<bool> record, vector<int> curr, vector<vector<int>>& res) {
         if(curr.size()==nums.size()){
             res.push_back(curr);
             return;
