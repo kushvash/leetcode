@@ -1,32 +1,31 @@
 class Solution {
 public:
-    void combinationSumHelper(vector<int>& candidates, vector<int>& currSet, int start, int target, vector<vector<int>>& res) {
-        if(target==0){
-            res.push_back(currSet);
+    void combinationSumHelper(vector<int>& candidates, int target, int currentElement, int currSum, vector<int>& curr, vector<vector<int>>& res) {
+        if(currSum==target){
+            res.push_back(curr);
             return;
         }
-        if(start==candidates.size() || target<0){
+        if(currSum>target || currentElement==candidates.size()){
             return;
         }
 
-        // including curr element
-        currSet.push_back(candidates[start]);
-        combinationSumHelper(candidates, currSet, start, target-candidates[start], res);
-        currSet.pop_back();
-        
-        // excluding curr element
-        combinationSumHelper(candidates, currSet, start+1, target, res);
-        
-        return;
+        // Excluding current element
+        currentElement++;
+        combinationSumHelper(candidates, target, currentElement, currSum, curr, res);
+        currentElement--;
+
+        // Including current element
+        curr.push_back(candidates[currentElement]);
+        currSum+=candidates[currentElement];
+        combinationSumHelper(candidates, target, currentElement, currSum, curr, res);
+        curr.pop_back();
     }
-
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<int> currSet;
+        vector<int> curr;
         vector<vector<int>> res;
-
-        combinationSumHelper(candidates, currSet, 0, target, res);
+        
+        combinationSumHelper(candidates, target, 0, 0, curr, res);
 
         return res;
-
     }
 };
