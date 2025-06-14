@@ -12,7 +12,10 @@ public:
             if(s[i]==')'){
                 // Case 1: “( )”
                 if (s[i-1] == '(') {
-                    dp[i] = 2 + (i >= 2 ? dp[i-2] : 0);
+                    dp[i] = 2;
+                    if(i>=2){
+                        dp[i]+=dp[i-2];
+                    }
                 }
                 // Case 2: “))” and the char before the previous valid is “(”
                 else if (i - dp[i-1] - 1 >= 0 
