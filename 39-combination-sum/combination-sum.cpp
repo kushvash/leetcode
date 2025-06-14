@@ -10,9 +10,7 @@ public:
         }
 
         // Excluding current element
-        currentElement++;
-        combinationSumHelper(candidates, target, currentElement, currSum, curr, res);
-        currentElement--;
+        combinationSumHelper(candidates, target, currentElement+1, currSum, curr, res);
 
         // Including current element
         curr.push_back(candidates[currentElement]);
