@@ -7,8 +7,7 @@ public:
         for(int i=1; i<n; i++){
             if(arr[i]>arr[i-1]){
                 inc[i]=dec[i-1]+1;
-                // dec[i]=0
-            }if(arr[i]<arr[i-1]){
+            }else if(arr[i]<arr[i-1]){
                 dec[i]=inc[i-1]+1;
             }
 
