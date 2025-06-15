@@ -7,9 +7,12 @@ public:
 
         for(int i=1; i<n; i++){
             for(int j=0; j<i; j++){
+                // updating positive DP
                 if(nums[i]>nums[j]){
                     dpP[i]=max(dpP[i], 1+dpN[j]);
-                }else if(nums[i]<nums[j]){
+                }
+                // updating negative DP
+                else if(nums[i]<nums[j]){
                     dpN[i]=max(dpN[i], 1+dpP[j]);
                 }
             }
