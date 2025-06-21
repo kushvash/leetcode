@@ -22,7 +22,6 @@ public:
             for(int j=-1000; j<=1000; j++){
                 dp[i][j+2000]+=dp[i+1][j-nums[i]+2000];
                 dp[i][j+2000]+=dp[i+1][j+nums[i]+2000];
-                
             }
         }
 
