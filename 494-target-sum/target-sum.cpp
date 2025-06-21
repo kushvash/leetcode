@@ -1,28 +1,37 @@
 class Solution {
 public:
     int findTargetSumWays(vector<int>& nums, int target) {
-        int n=nums.size();
+        int n=nums.size(), maxS=0;
 
-        vector<vector<int>> dp(n+1, vector<int> (4005, 0));
+        for(int num: nums){
+            maxS+=num;
+        }
+        target+=maxS;
 
-        dp[n][2000] = 1;
+        if(target%2!=0 || target<0){
+            return 0;
+        }
 
-        // for(int i=-1000; i<=1000; i++){        
-        //     if(i==nums[n-1]){
-        //         dp[n-1][i+2000]+=1;
-        //     }
-        //     if(i==-nums[n-1]){
-        //         dp[n-1][i+2000]+=1;
-        //     }
+        target/=2;
+        
+        vector<vector<int>> dp(n+1, vector<int> (target+1, 0));
+
+        // for(int i=0; i<n+1; i++){
+        //     dp[i][0]=1;
         // }
-    
-        for(int i=n-1; i>=0; i--){
-            for(int j=-1000; j<=1000; j++){
-                dp[i][j+2000]+=dp[i+1][j-nums[i]+2000];
-                dp[i][j+2000]+=dp[i+1][j+nums[i]+2000];
+        dp[0][0]=1;
+
+        for(int i=1; i<=n; i++){
+            for(int s=0; s<=target; s++){
+                if(s>=nums[i-1]){
+                    dp[i][s]+=dp[i-1][s-nums[i-1]];
+                    dp[i][s]+=dp[i-1][s];
+                }else{
+                    dp[i][s]+=dp[i-1][s];
+                }
             }
         }
 
-        return dp[0][target+2000];
+        return dp[n][target];
     }
 };
