@@ -2,9 +2,8 @@ class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
         int n=coins.size();
-        int INF = INT_MAX/2; 
         
-        vector<vector<int>> dp(n+1, vector<int> (amount+1, INF));
+        vector<vector<int>> dp(n+1, vector<int> (amount+1, INT_MAX/2));
 
         for(int i=1; i<=n; i++){
             dp[i][0]=0;
@@ -20,7 +19,7 @@ public:
                 }
             }
         }
-        if(dp[n][amount]<INF){
+        if(dp[n][amount]<INT_MAX/2){
             return dp[n][amount];
         }
         return -1;
