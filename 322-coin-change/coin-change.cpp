@@ -3,7 +3,7 @@ public:
     int coinChange(vector<int>& coins, int amount) {
         int n=coins.size();
 
-        vector<vector<int>> dp(n+1, vector<int>(amount+1, INT_MAX/2));
+        vector<vector<int>> dp(n+1, vector<int>(amount+1, ((INT_MAX/3)*2)));
 
         for(int i=0; i<=n; i++){
             dp[i][0]=0;
@@ -19,7 +19,7 @@ public:
             }
         }
 
-        if(dp[n][amount]==INT_MAX/2){
+        if(dp[n][amount]==(INT_MAX/3)*2){
             return -1;
         }
 
