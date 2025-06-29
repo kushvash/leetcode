@@ -3,26 +3,27 @@ public:
     int coinChange(vector<int>& coins, int amount) {
         int n=coins.size();
 
-        vector<vector<int>> dp(n+1, vector<int>(amount+1, ((INT_MAX/3)*2)));
+        vector<vector<int>> dp(n+1, vector<int>(amount+1, INT_MAX/2));
 
         for(int i=0; i<=n; i++){
             dp[i][0]=0;
         }
 
         for(int i=1; i<=n; i++){
-            for(int s=1; s<=amount; s++){
-                if(coins[i-1]<=s){
-                    dp[i][s]=min(1+dp[i][s-coins[i-1]], dp[i-1][s]);
+            for(int j=1; j<=amount; j++){
+                if(j<coins[i-1]){
+                    dp[i][j]=dp[i-1][j];
                 }else{
-                    dp[i][s]=dp[i-1][s];
+                    dp[i][j]=min(dp[i-1][j], 1 + dp[i][j-coins[i-1]]);
                 }
             }
         }
 
-        if(dp[n][amount]==(INT_MAX/3)*2){
+        if(dp[n][amount]==INT_MAX/2){
             return -1;
         }
 
         return dp[n][amount];
+
     }
 };
