@@ -23,24 +23,26 @@ public:
             }
         }
 
-        int i=n, j=n;
+        return dp[n][n];
 
-        while(i>0 && j>0){
-            if(s[i-1]==sNew[j-1]){
-                ans+=s[i-1];
-                i--;
-                j--;
-            }
-            else if(dp[i-1][j]>dp[i][j-1]){
-                i--;
-            }else{
-                j--;
-            }
-        }
+        // int i=n, j=n;
+
+        // while(i>0 && j>0){
+        //     if(s[i-1]==sNew[j-1]){
+        //         ans+=s[i-1];
+        //         i--;
+        //         j--;
+        //     }
+        //     else if(dp[i-1][j]>dp[i][j-1]){
+        //         i--;
+        //     }else{
+        //         j--;
+        //     }
+        // }
 
 
-        reverse(ans.begin(), ans.end());
+        // reverse(ans.begin(), ans.end());
 
-        return ans.size();
+        // return ans.size();
     }
 };
