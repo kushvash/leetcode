@@ -9,21 +9,20 @@ public:
             dp[i][0]=0;
         }
 
-        for(int i=1; i<=n; i++){
+        for (int i=1; i<=n; i++){
             for(int j=1; j<=amount; j++){
-                if(j<coins[i-1]){
+                if(coins[i-1]>j){
                     dp[i][j]=dp[i-1][j];
                 }else{
-                    dp[i][j]=min(dp[i-1][j], 1 + dp[i][j-coins[i-1]]);
+                    dp[i][j]=min(dp[i-1][j], 1+dp[i][j-coins[i-1]]);
                 }
             }
-        }
+        }    
 
         if(dp[n][amount]==INT_MAX/2){
             return -1;
         }
-
+        
         return dp[n][amount];
-
     }
 };
