@@ -6,7 +6,7 @@ public:
         if(m+n!=s3.size()){
             return false;
         }
-        
+
         vector<vector<bool>> dp(m+1, vector<bool>(n+1, false));
         
         dp[0][0] = true;
@@ -17,9 +17,9 @@ public:
             dp[0][j] = dp[0][j-1] && (s2[j-1] == s3[j-1]);
         }
 
-        for (int i = 1; i <= m; ++i) {
-            for (int j = 1; j <= n; ++j) {
-                dp[i][j] = (dp[i-1][j] && s1[i-1] == s3[i+j-1]) || (dp[i][j-1] && s2[j-1] == s3[i+j-1]);
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                dp[i][j] = (dp[i-1][j] && (s1[i-1] == s3[i+j-1])) || (dp[i][j-1] && (s2[j-1] == s3[i+j-1]));
             }
         }
 
