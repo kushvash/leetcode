@@ -16,13 +16,21 @@ public:
             return true;
         }
 
-        if((p && !q) || (!p && q)){
+        if((!p && q) || (p && !q)){
             return false;
         }
+
         if(p->val!=q->val){
             return false;
         }
 
-        return (isSameTree(p->left, q->left) && isSameTree(p->right, q->right));
+        bool l=isSameTree(p->left, q->left);
+        bool r=isSameTree(p->right, q->right);
+
+        if(!(l && r)){
+            return false;
+        }
+
+        return true;
     }
 };
