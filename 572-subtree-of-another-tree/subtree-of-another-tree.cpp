@@ -15,21 +15,19 @@ public:
         if(!root && !subRoot){
             return true;
         }
-
-        if((!subRoot || !root) || subRoot->val!=root->val){
+        
+        if((!root || !subRoot) || root->val!=subRoot->val){
             return false;
         }
 
-        return isSame(root->left, subRoot->left) && isSame(root->right, subRoot->right);
+        return (isSame(root->left, subRoot->left) && isSame(root->right, subRoot->right));
     }
-
+    
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        if(!subRoot){
-            return true;
-        }
-        if(!root){
+        if((!root && subRoot) || (root && !subRoot)){
             return false;
         }
+        
 
         if(isSame(root, subRoot)){
             return true;
