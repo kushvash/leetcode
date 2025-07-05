@@ -11,20 +11,23 @@
  */
 class Solution {
 public:
-    int diameterOfBinaryTreeHelper(TreeNode* node, int& maxD) {
-        if(!node){
+    int diameterOfBinaryTreeHelper(TreeNode* root, int& maxLen){
+        if(!root){
             return 0;
         }
-        int l=diameterOfBinaryTreeHelper(node->left, maxD), r=diameterOfBinaryTreeHelper(node->right, maxD);
-        maxD=max(maxD, l+r);
 
-        return 1+max(l, r);
+        int left=diameterOfBinaryTreeHelper(root->left, maxLen);
+        int right=diameterOfBinaryTreeHelper(root->right, maxLen);
+       
+       maxLen=max(maxLen, left+right);
+
+       return 1+max(left, right);
     }
-
     int diameterOfBinaryTree(TreeNode* root) {
-        int maxD=0;
-        diameterOfBinaryTreeHelper(root, maxD);
+        int maxLen=0;
 
-        return maxD;
+        diameterOfBinaryTreeHelper(root, maxLen);
+        
+        return maxLen;
     }
 };
