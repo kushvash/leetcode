@@ -16,13 +16,12 @@ public:
             return true;
         }
         
-        if((!root || !subRoot) || root->val!=subRoot->val){
+        if(((root && !subRoot) || (!root && subRoot)) || root->val!=subRoot->val){
             return false;
         }
 
         return (isSame(root->left, subRoot->left) && isSame(root->right, subRoot->right));
     }
-    
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
         if((!root && subRoot) || (root && !subRoot)){
             return false;
