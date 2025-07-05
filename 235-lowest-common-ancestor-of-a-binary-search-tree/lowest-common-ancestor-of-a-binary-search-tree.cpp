@@ -19,20 +19,20 @@ public:
             return root;
         }
 
-        TreeNode* left=lowestCommonAncestor(root->left, p, q);
-        TreeNode* right=lowestCommonAncestor(root->right, p, q);
-    
-        if(left && !right){
-            return left;
-        }
-        if(right && !left){
-            return right;
+        if (p->val > q->val){
+            swap(p, q);
         }
 
-        if(right && left){
-            return root;
-        }
+        TreeNode* left;
+        TreeNode* right;
 
-        return nullptr;
+        if (q->val < root->val) {
+            return lowestCommonAncestor(root->left, p, q);
+        }
+        else if (p->val > root->val) {
+            return lowestCommonAncestor(root->right, p, q);
+        }
+        return root;
+
     }
 };
