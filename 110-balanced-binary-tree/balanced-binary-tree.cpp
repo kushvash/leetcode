@@ -12,7 +12,7 @@
 class Solution {
 public:
     int isBalancedHelper(TreeNode* root, bool& soFar){
-        if(!root){
+        if(!root || soFar==false){
             return 0;
         }
 
