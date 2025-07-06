@@ -11,24 +11,32 @@
  */
 class Solution {
 public:
-    int maxPathSumHelper(TreeNode* node, int& maxS) {
-        if(!node){
+    int maxPathSumHelper(TreeNode* root, int& maxP){
+        if(!root){
             return 0;
         }
 
-        int l=maxPathSumHelper(node->left, maxS);
-        int r=maxPathSumHelper(node->right, maxS);
+        int leftPath=maxPathSumHelper(root->left, maxP);
 
-        maxS=max(maxS, l+r+node->val);
+        int rightPath=maxPathSumHelper(root->right, maxP);
 
-        return max(0, node->val+max(l, r));
+        if(leftPath<0){
+            leftPath=0;
+        }
+        if(rightPath<0){
+            rightPath=0;
+        }
+
+        maxP=max(maxP, leftPath+rightPath+root->val);
+
+        return root->val + max(leftPath, rightPath);
     }
 
-    int maxPathSum(TreeNode* root) {
-        int maxS=root->val;
-
-        maxPathSumHelper(root, maxS);
-
-        return maxS;
+    int maxPathSum(TreeNode* root){
+        int maxP=root->val;
+    
+        int temp=maxPathSumHelper(root, maxP);
+    
+        return maxP;
     }
 };
