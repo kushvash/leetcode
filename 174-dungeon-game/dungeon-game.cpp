@@ -12,8 +12,8 @@ public:
         need[m-1][n] = 1;
 
         // Fill from bottom–right back to top–left
-        for (int i = m-1; i >= 0; --i) {
-            for (int j = n-1; j >= 0; --j) {
+        for (int i = m-1; i >= 0; i--) {
+            for (int j = n-1; j >= 0; j--) {
                 // Choose the cheaper next step (down or right)
                 int bestNext = min(need[i+1][j], need[i][j+1]);
                 // If dungeon[i][j] is negative, you lose HP; positive you gain.
