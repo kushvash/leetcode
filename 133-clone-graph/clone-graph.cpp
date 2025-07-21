@@ -22,11 +22,11 @@ public:
 class Solution {
 public:
     Node* cloneGraph(Node* node) {
-        map<Node*, Node*> oldToNew;
+        unordered_map<Node*, Node*> oldToNew;
         return dfs(node, oldToNew);
     }
 
-    Node* dfs(Node* node, map<Node*, Node*>& oldToNew) {
+    Node* dfs(Node* node, unordered_map<Node*, Node*>& oldToNew) {
         if (node == nullptr) {
             return nullptr;
         }
