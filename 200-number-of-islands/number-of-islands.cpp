@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void markIsland(int i, int j, vector<vector<char>>& grid, vector<vector<bool>>& record){
+    void markIsland(int i, int j, int m, int n, vector<vector<char>>& grid, vector<vector<bool>>& record){
         if(record[i][j]){
             return;
         }
@@ -8,19 +8,19 @@ public:
         record[i][j]=true;
 
         if(i!=0 && grid[i-1][j]=='1'){
-            markIsland(i-1, j, grid, record);
+            markIsland(i-1, j, m, n, grid, record);
         }
 
         if(j!=0 && grid[i][j-1]=='1'){
-            markIsland(i, j-1, grid, record);
+            markIsland(i, j-1, m, n, grid, record);
         } 
 
-        if(i!=grid.size()-1 && grid[i+1][j]=='1'){
-            markIsland(i+1, j, grid, record);
+        if(i!=m-1 && grid[i+1][j]=='1'){
+            markIsland(i+1, j, m, n, grid, record);
         }
 
-        if(j!=grid[0].size()-1 && grid[i][j+1]=='1'){
-            markIsland(i, j+1, grid, record);    
+        if(j!=n-1 && grid[i][j+1]=='1'){
+            markIsland(i, j+1, m, n, grid, record);    
         } 
 
         return;
@@ -34,7 +34,7 @@ public:
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
                 if(grid[i][j]=='1' && !record[i][j]){
-                    markIsland(i, j, grid, record);
+                    markIsland(i, j, m, n, grid, record);
                     count++;
                 }
             }
