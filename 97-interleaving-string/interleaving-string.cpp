@@ -1,6 +1,16 @@
 class Solution {
 public:
     bool isInterleave(string s1, string s2, string s3) {
+        // int n1=s1.size(), n2=s2.size(), n3=s3.size();
+
+        // if(n1+n2!=n3){
+        //     return false;
+        // }
+
+        // vector<vector<bool>> dp(n1+1, vector<bool>(n2+1, false));
+    
+        // dp[0][0]=true;
+
         int m = s1.size(), n = s2.size();
         if (m + n != (int)s3.size()) 
             return false;
@@ -23,14 +33,17 @@ public:
         for (int i = 1; i <= m; ++i) {
             for (int j = 1; j <= n; ++j) {
                 // take next char from s1
-                if (dp[i-1][j] && s1[i-1] == s3[i+j-1])
+                if (dp[i-1][j] && s1[i-1] == s3[i+j-1]){
                     dp[i][j] = true;
+                }
                 // or take next char from s2
-                if (dp[i][j-1] && s2[j-1] == s3[i+j-1])
+                else if (dp[i][j-1] && s2[j-1] == s3[i+j-1]){
                     dp[i][j] = true;
+                }
             }
         }
 
         return dp[m][n];
+
     }
 };
