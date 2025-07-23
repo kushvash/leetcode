@@ -12,7 +12,7 @@ public:
         val = _val;
         neighbors = vector<Node*>();
     }
-    Node(int _val, vector<Node*> _neighbors) {
+    Node(int _val, vector<Node*> _neighbors) { 
         val = _val;
         neighbors = _neighbors;
     }
@@ -22,26 +22,31 @@ public:
 class Solution {
 public:
     Node* cloneGraph(Node* node) {
-        unordered_map<Node*, Node*> oldToNew;
-        return dfs(node, oldToNew);
-    }
-
-    Node* dfs(Node* node, unordered_map<Node*, Node*>& oldToNew) {
-        if (node == nullptr) {
+        if(!node){
             return nullptr;
+        }   
+
+        queue<Node*> q;
+        unordered_map<Node*, Node*> record;
+
+        q.push(node);
+
+        record[node]=new Node(node->val);
+
+        while(!q.empty()){
+            Node* curr=q.front();
+            q.pop();
+
+            for(Node* ne: curr->neighbors){
+                if(record.find(ne)==record.end()){
+                    record[ne] = new Node(ne->val);
+                    q.push(ne); 
+                }
+
+                record[curr]->neighbors.push_back(record[ne]);
+            }
         }
 
-        if (oldToNew.count(node)) {
-            return oldToNew[node];
-        }
-
-        Node* copy = new Node(node->val);
-        oldToNew[node] = copy;
-
-        for (Node* nei : node->neighbors) {
-            copy->neighbors.push_back(dfs(nei, oldToNew));
-        }
-
-        return copy;
+        return record[node];
     }
 };
