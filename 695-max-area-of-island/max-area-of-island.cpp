@@ -1,40 +1,53 @@
 class Solution {
 public:
-    int areaOfIsland(int i, int j, vector<vector<int>>& grid) {
-        if(grid[i][j]==0){
-            return 0;
-        }
+    int maxAreaOfIslandHelper(int row, int col, vector<vector<int>>& grid) {
+        int m=grid.size(), n=grid[0].size(), count=1;
 
-        grid[i][j]=0;
-        int count=1;
+        queue<pair<int, int>> q;
 
-        if(i>0){
-            count+=areaOfIsland(i-1, j, grid);
-        }
-        if(j>0){
-            count+=areaOfIsland(i, j-1, grid);
-        }
-        if(i<grid.size()-1){
-            count+=areaOfIsland(i+1, j, grid);
-        }
-        if(j<grid[0].size()-1){
-            count+=areaOfIsland(i, j+1, grid);
-        }
+        q.push({row, col});
+        grid[row][col]=0;
 
+        while(!q.empty()){
+            int r=q.front().first, c=q.front().second;
+            q.pop();
+
+            if(r!=0 && grid[r-1][c]==1){
+                q.push({r-1,c});
+                grid[r-1][c]=0;
+                count++;
+            }
+            if(c!=0 && grid[r][c-1]==1){
+                q.push({r,c-1});
+                grid[r][c-1]=0;
+                count++;
+            }
+            if(r!=m-1 && grid[r+1][c]==1){
+                q.push({r+1,c});
+                grid[r+1][c]=0;
+                count++;
+            }
+            if(c!=n-1 && grid[r][c+1]==1){
+                q.push({r,c+1});
+                grid[r][c+1]=0;
+                count++;
+            }
+        }
         return count;
     }
 
     int maxAreaOfIsland(vector<vector<int>>& grid) {
-        int m=grid.size(), n=grid[0].size(), maxIslands=0;
+        int m=grid.size(), n=grid[0].size(), ans=0;
 
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
                 if(grid[i][j]==1){
-                    maxIslands=max(maxIslands, areaOfIsland(i, j, grid));
+                    ans=max(ans, maxAreaOfIslandHelper(i, j, grid));
                 }
             }
         }
 
-        return maxIslands;
+
+        return ans;
     }
 };
