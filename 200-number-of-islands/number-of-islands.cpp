@@ -1,32 +1,47 @@
 class Solution {
 public:
-    int directions[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-
     int numIslands(vector<vector<char>>& grid) {
-        int ROWS = grid.size(), COLS = grid[0].size();
-        int islands = 0;
+        int m=grid.size(), n=grid[0].size(), count=0;
 
-        for (int r = 0; r < ROWS; r++) {
-            for (int c = 0; c < COLS; c++) {
-                if (grid[r][c] == '1') {
-                    dfs(grid, r, c);
-                    islands++;
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(grid[i][j]=='1'){
+                    bfs(i, j, grid);
+                    count++;
                 }
             }
         }
-        
-        return islands;
+
+        return count;
     }
-    
-    void dfs(vector<vector<char>>& grid, int r, int c) {
-        if (r < 0 || c < 0 || r >= grid.size() || 
-            c >= grid[0].size() || grid[r][c] == '0') {
-            return;
-        }
-        
-        grid[r][c] = '0';
-        for (int i = 0; i < 4; i++) {
-            dfs(grid, r + directions[i][0], c + directions[i][1]);
+
+    void bfs(int r, int c, vector<vector<char>>& grid) {
+        int m=grid.size(), n=grid[0].size();
+        queue<vector<int>> q;
+        grid[r][c]='0';
+
+        q.push({r,c});
+
+        while (!q.empty()) {
+            int row = q.front()[0], col = q.front()[1];
+            q.pop();
+
+            if (row > 0 && grid[row-1][col] == '1') {
+                q.push({row-1, col});
+                grid[row-1][col] = '0';
+            }
+            if (col > 0 && grid[row][col-1] == '1') {
+                q.push({row, col-1});
+                grid[row][col-1] = '0';
+            }
+            if (row < m-1 && grid[row+1][col] == '1') {
+                q.push({row+1, col});      // fixed
+                grid[row+1][col] = '0';
+            }
+            if (col < n-1 && grid[row][col+1] == '1') {
+                q.push({row, col+1});      // fixed
+                grid[row][col+1] = '0';
+            }
         }
     }
 };
