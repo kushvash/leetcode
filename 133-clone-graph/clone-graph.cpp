@@ -30,13 +30,14 @@ public:
             return record[root];
         }
 
-        record[root] = new Node(root->val);
+        Node* copy = new Node(root->val);
+        record[root] = copy;
 
-        for(Node* ne: root->neighbors){
-            record[root]->neighbors.push_back(cloneGraphHelper(ne, record));
+        for (Node* nei : root->neighbors) {
+            copy->neighbors.push_back(cloneGraphHelper(nei, record));
         }
 
-        return record[root];
+        return copy;
     }
 
     Node* cloneGraph(Node* node) {
