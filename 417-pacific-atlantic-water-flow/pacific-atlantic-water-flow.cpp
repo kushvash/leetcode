@@ -1,48 +1,55 @@
 class Solution {
 public:
-    void bfs(queue<pair<int, int>>& q, vector<vector<bool>>& ocean, vector<vector<int>>& heights){
-        vector<pair<int, int>> directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+    vector<pair<int, int>> dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
     
-        while (!q.empty()) {
-            auto [r, c] = q.front(); q.pop();
-            ocean[r][c] = true;
-            for (auto [dr, dc] : directions) {
-                int nr = r + dr, nc = c + dc;
-                if (nr >= 0 && nr < heights.size() && nc >= 0 && nc < heights[0].size() && !ocean[nr][nc] && heights[nr][nc] >= heights[r][c]) {
-                    q.push({nr, nc});
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        int m=heights.size(), n=heights[0].size();
+        vector<vector<int>> res;
+        vector<vector<bool>> pac(m, vector<bool>(n, false));
+        vector<vector<bool>> atl(m, vector<bool>(n, false));
+        queue<pair<int, int>> pacQ, atlQ;
+
+        for(int i=0; i<m; i++){
+            pacQ.push({i, 0});
+            atlQ.push({i, n-1});
+        }
+
+        for(int j=0; j<n; j++){
+            pacQ.push({0,j});
+            atlQ.push({m-1, j});
+        }
+
+        bfs(pacQ, pac, heights);
+        bfs(atlQ, atl, heights);
+        
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(pac[i][j] && atl[i][j]){
+                    res.push_back({i, j});
                 }
             }
         }
+
+        return res;
     }
 
-    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
-        int ROWS = heights.size(), COLS = heights[0].size();
-        vector<vector<bool>> pac(ROWS, vector<bool>(COLS, false));
-        vector<vector<bool>> atl(ROWS, vector<bool>(COLS, false));
-        
-        queue<pair<int, int>> pacQueue, atlQueue;
-        
-        for (int c = 0; c < COLS; ++c) {
-            pacQueue.push({0, c});
-            atlQueue.push({ROWS - 1, c});
-        }
-        for (int r = 0; r < ROWS; ++r) {
-            pacQueue.push({r, 0});
-            atlQueue.push({r, COLS - 1});
-        }
+    void bfs(queue<pair<int, int>> &q, vector<vector<bool>> &ocean, vector<vector<int>>& heights){
+        while(!q.empty()){
+            int row=q.front().first;
+            int col=q.front().second;
+            ocean[row][col]=true;
+            q.pop();
+            
+            for(int i=0; i<4; i++){
+                int r=row+dirs[i].first;
+                int c=col+dirs[i].second;
 
-        bfs(pacQueue, pac, heights);
-        bfs(atlQueue, atl, heights);
-
-        vector<vector<int>> ans;
-
-        for(int i=0; i<ROWS; i++){
-            for(int j=0; j<COLS; j++){
-                if(pac[i][j] && atl[i][j]){
-                    ans.push_back({i, j});
+                if(r<0 || c<0 || r>=heights.size() || c>=heights[0].size() || heights[r][c]<heights[row][col] || ocean[r][c]){
+                    continue;
                 }
+
+                q.push({r, c});
             }
         }
-        return ans;
     }
 };
