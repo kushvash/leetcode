@@ -44,9 +44,6 @@ public:
             int row=q.front().first;
             int col=q.front().second;
             q.pop();
-            // if (board[row][col] != 'O'){
-            //     continue;
-            // }
             board[row][col]='P';
 
             for(int i=0; i<4; i++){
