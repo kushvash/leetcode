@@ -15,10 +15,6 @@ public:
         int slow=isHappyHelper(n);
         int fast=isHappyHelper(isHappyHelper(n));
 
-        if(slow==fast){
-            return true;
-        }
-
         while(slow!=fast){
             if(fast==1){
                 return true;
@@ -27,6 +23,6 @@ public:
             fast=isHappyHelper(isHappyHelper(fast));
         }
 
-        return false;
+        return slow==1;
     }
 };
