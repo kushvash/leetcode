@@ -1,30 +1,32 @@
 class Solution {
 public:
-    int squaresCal(int n) {
-        int ans=0, p;
+    int isHappyHelper(int n) {
+        int ans=0;
 
         while(n>0){
-            p=n%10;
-            ans+=p*p;
+            int temp=(n%10);
+            ans+=temp*temp;
             n/=10;
         }
 
         return ans;
     }
-
     bool isHappy(int n) {
-        int s=squaresCal(n), f=squaresCal(squaresCal(n));
+        int slow=isHappyHelper(n);
+        int fast=isHappyHelper(isHappyHelper(n));
 
-        while(s!=f){
-            if(f==1){
-                return true;
-            }
-
-            s=squaresCal(s); 
-            f=squaresCal(squaresCal(f));
+        if(slow==fast){
+            return true;
         }
 
-        return s==1;
+        while(slow!=fast){
+            if(fast==1){
+                return true;
+            }
+            slow=isHappyHelper(slow);
+            fast=isHappyHelper(isHappyHelper(fast));
+        }
 
+        return false;
     }
 };
