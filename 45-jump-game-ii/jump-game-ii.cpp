@@ -5,10 +5,10 @@ public:
         if (n <= 1) return 0;
 
         int jumps = 0, currentEnd = 0, farthest = 0;
-        for (int i = 0; i < n - 1; ++i) {
+        for (int i = 0; i < n - 1; i++) {
             farthest = max(farthest, i + nums[i]);
             if (i == currentEnd) {
-                ++jumps;
+                jumps++;
                 currentEnd = farthest;
                 if (currentEnd >= n - 1) break;
             }
