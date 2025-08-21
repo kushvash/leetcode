@@ -9,7 +9,7 @@ public:
         vector<int> dp(n, 0);
         dp[0] = 1;  // first char is non-zero
 
-        for (int i = 1; i < n; ++i) {
+        for (int i = 1; i < n; i++) {
             int ways = 0;
 
             // single digit s[i]
