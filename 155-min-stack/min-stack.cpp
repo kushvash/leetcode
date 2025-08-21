@@ -3,14 +3,13 @@ public:
     MinStack() {
         
     }
-    
     stack<int> s;
     stack<int> minStack;
-
+    
     void push(int val) {
         s.push(val);
         if(minStack.empty()){
-            minStack.push(val);    
+            minStack.push(val);
         }else{
             minStack.push(min(val, minStack.top()));
         }
