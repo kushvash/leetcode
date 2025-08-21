@@ -20,7 +20,11 @@ public:
             // two digits s[i-1..i]
             int two = (s[i-1]-'0')*10 + (s[i]-'0');
             if (two >= 10 && two <= 26) {
-                ways += (i >= 2 ? dp[i-2] : 1); // empty prefix counts as 1
+                if(i>=2){
+                    ways+=dp[i-2];
+                }else{
+                    ways+=1;          // empty prefix counts as 1
+                }
             }
 
             dp[i] = ways;
