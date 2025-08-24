@@ -5,13 +5,11 @@ public:
         int res=0, prevEnd=intervals[0][1];
 
         for(int i=1; i<intervals.size(); i++){
-            int start=intervals[i][0];
-            int end=intervals[i][1];
-            if(start>=prevEnd){
-                prevEnd=end;
+            if(intervals[i][0]>=prevEnd){
+                prevEnd=intervals[i][1];
             }else{
                 res++;
-                prevEnd=min(end, prevEnd);
+                prevEnd=min(intervals[i][1], prevEnd);
             }
         }
 
