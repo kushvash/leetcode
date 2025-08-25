@@ -1,34 +1,35 @@
 class Solution {
 public:
-    void subsetsWithDupHelper(vector<int>& nums, vector<int>& currSet , int start, vector<vector<int>>& res) {
-        // base case
-        if(start==nums.size()) {
-            res.push_back(currSet);
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<int> curr;
+        vector<vector<int>> ans;
+
+        sort(nums.begin(), nums.end());
+        subsetsWithDupHelper(nums, ans, 0, curr);
+
+        return ans;
+
+    }
+
+    void subsetsWithDupHelper(vector<int>& nums, vector<vector<int>>& res, int i, vector<int>& curr){
+        if(i==nums.size()){
+            res.push_back(curr);
             return;
         }
 
-        // excluding current
-        int i=start+1;
+        // including nums[i]
+        curr.push_back(nums[i]);
+        subsetsWithDupHelper(nums, res, i+1, curr);
+        curr.pop_back();
+
+        // excluding nums[i]
+        i++;
         while(i<nums.size() && nums[i]==nums[i-1]){
             i++;
         }
-        subsetsWithDupHelper(nums, currSet, i, res);
 
-        // including current
-        currSet.push_back(nums[start]);
-        subsetsWithDupHelper(nums, currSet, start+1, res);
-        currSet.pop_back();
+        subsetsWithDupHelper(nums, res, i, curr);
 
         return;
-    }
-
-    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        vector<vector<int>> res;
-        sort(nums.begin(), nums.end());
-        vector<int> currSet;
-
-        subsetsWithDupHelper(nums, currSet, 0, res);
-
-        return res;
     }
 };
