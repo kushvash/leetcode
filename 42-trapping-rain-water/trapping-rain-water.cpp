@@ -1,9 +1,9 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
-        if (height.empty()) {
-            return 0;
-        }
+        // if (height.empty()) {
+        //     return 0;
+        // }
 
         int l = 0, r = height.size() - 1;
         int leftMax = height[l], rightMax = height[r];
