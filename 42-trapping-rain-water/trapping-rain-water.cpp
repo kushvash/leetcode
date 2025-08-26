@@ -14,6 +14,7 @@ public:
         for(int i=n-2; i>=0; i--){
             maxR[i]=max(height[i], maxR[i+1]);
         }
+        
         int ans=0;
         for(int i=1; i<n-1; i++){
             int temp=min(maxL[i], maxR[i])-height[i];
