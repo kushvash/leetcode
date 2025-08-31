@@ -8,7 +8,7 @@ public:
             record.insert(num);
         }
 
-        for(auto num: record){
+        for(auto& num: record){
             if(record.find(num-1)==record.end()){
                 int temp=num;
                 int len=0;
