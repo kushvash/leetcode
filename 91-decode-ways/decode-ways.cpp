@@ -5,11 +5,11 @@ public:
         if (n == 0 || s[0] == '0') {
             return 0;
         }
-        
+
         vector<int> dp(n, 0);
         dp[0] = 1;
 
-        for (int i = 1; i < n; ++i) {
+        for (int i = 1; i < n; i++) {
             int ways = 0;
 
             // single digit s[i]
