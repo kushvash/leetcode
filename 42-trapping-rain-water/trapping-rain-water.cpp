@@ -19,9 +19,9 @@ public:
         for(int i=1; i<n-1; i++) {
             int temp=min(leftMax[i], rightMax[i])-height[i];
 
-            if(temp>0) {
-                ans+=temp;
-            }
+            // if(temp>0) {
+            ans+=temp;
+            // }
         }
 
         return ans;
