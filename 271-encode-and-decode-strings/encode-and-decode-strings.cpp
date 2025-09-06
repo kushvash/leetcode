@@ -1,5 +1,6 @@
 class Codec {
 public:
+
     // Encodes a list of strings to a single string.
     string encode(vector<string>& strs) {
         string res="";
@@ -15,24 +16,24 @@ public:
 
     // Decodes a single string to a list of strings.
     vector<string> decode(string s) {
-        int start=0;
+        int n=s.size(), i=0;
         vector<string> res;
 
-        while(start<s.size()){
-            int end=start;
+        while(i<n){
+            int temp=i;
 
-            while(s[end]!='#'){
-                end++;
+            while(s[temp]!='#') {
+                temp++;
             }
 
-            int length=stoi(s.substr(start, end-start));
+            int len=stoi(s.substr(i, temp-i));
 
-            start=end+1;
-            end=start+length;
+            i=temp+1;
+            temp=i+len;
 
-            res.push_back(s.substr(start, length));
+            res.push_back(s.substr(i, len));
 
-            start=end;
+            i=temp;
         }
 
         return res;
