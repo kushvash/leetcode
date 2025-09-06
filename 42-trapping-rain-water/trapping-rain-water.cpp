@@ -9,11 +9,11 @@ public:
         rightMax[n-1]=height[n-1];
 
         for(int i=1; i<n; i++) {
-            leftMax[i]=max(leftMax[i-1], height[i-1]);
+            leftMax[i]=max(leftMax[i-1], height[i]);
         }
 
         for(int i=n-2; i>=0; i--) {
-            rightMax[i]=max(rightMax[i+1], height[i+1]);
+            rightMax[i]=max(rightMax[i+1], height[i]);
         }
 
         for(int i=1; i<n-1; i++) {
