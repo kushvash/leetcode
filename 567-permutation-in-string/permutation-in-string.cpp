@@ -1,44 +1,56 @@
 class Solution {
 public:
-    bool checkMaps(vector<int>& rec1, vector<int>& rec2) {
-        for(int i=0; i<26; i++) {
-            if(rec1[i]!=rec2[i]) {
-                return false;
-            }
-        }
-
-        return true;
-    }
     bool checkInclusion(string s1, string s2) {
-        int n1=s1.size(), n2=s2.size();
-
-        if(n1>n2) {
+        if (s1.length() > s2.length()) {
             return false;
         }
 
-        vector<int> rec1(26, 0);
-        vector<int> rec2(26, 0);
-
-        for(int i=0; i<n1; i++) {
-            rec1[s1[i]-'a']++;
-            rec2[s2[i]-'a']++;
+        vector<int> s1Count(26, 0);
+        vector<int> s2Count(26, 0);
+       
+        for(int i=0; i<s1.size(); i++) {
+            s1Count[s1[i]-'a']++;
+            s2Count[s2[i]-'a']++;
         }
 
-        int left=0, right=n1-1;
+        int matches=0;
 
-        while(right<n2) {
-            if(checkMaps(rec1, rec2)) {
+        for(int i=0; i<26; i++) {
+            if(s1Count[i]==s2Count[i]) {
+                matches++;
+            }
+        }
+
+        int l=0, r=s1.size();
+
+        while(r<s2.size()) {
+            if(matches==26) {
                 return true;
             }
 
-            rec2[s2[left]-'a']--;
-            left++;
-            right++;
-            if(right<n2) {
-                rec2[s2[right]-'a']++;
+            int index=s2[l]-'a';
+            s2Count[index]--;
+
+            if(s1Count[index]==s2Count[index]) {
+                matches++;
+            }else if(s1Count[index]==s2Count[index]+1) {
+                matches--;
             }
+
+
+            index=s2[r]-'a';
+            s2Count[index]++;
+
+            if(s1Count[index]==s2Count[index]) {
+                matches++;
+            }else if(s1Count[index]==s2Count[index]-1) {
+                matches--;
+            }
+
+            l++;
+            r++;
         }
 
-        return false;
+        return matches==26;
     }
 };
