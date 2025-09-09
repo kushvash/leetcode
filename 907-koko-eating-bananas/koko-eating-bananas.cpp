@@ -1,31 +1,32 @@
 class Solution {
 public:
-    double bananasFinished(vector<int>& piles, int speed){
-        double total=0;
-        for(int pile: piles){
-            total+=pile / speed;
+    bool minEatingSpeedHelper(vector<int>& piles, int h, int speed) {
+        int hours=0;
 
-            if(pile%speed!=0){
-                total++;
+        for(int& b: piles) {
+            hours+=b/speed;
+
+            if(b%speed!=0) {
+                hours++;
             }
         }
 
-        return total;
+        return hours<=h;
     }
 
     int minEatingSpeed(vector<int>& piles, int h) {
-        int lo=1, mid, hi=0;
-
-        for(int num: piles){
+        int lo=1, hi=0, mid;
+        
+        for(int num: piles) {
             hi=max(hi, num);
         }
 
-        while(lo<=hi){
-            mid=lo+((hi-lo)/2);
+        while(lo<hi) {
+            mid=lo+(hi-lo)/2;
 
-            if(bananasFinished(piles, mid)<=h){
-                hi=mid-1;
-            }else{
+            if(minEatingSpeedHelper(piles, h, mid)) {
+                hi=mid;
+            }else {
                 lo=mid+1;
             }
         }
