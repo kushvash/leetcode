@@ -8,43 +8,41 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
 class Solution {
 public:
-    ListNode* reverseList(ListNode* mid) {
-        ListNode *prevN=nullptr;
-
-        while(mid!=nullptr){
-            ListNode *temp=mid->next;
-            mid->next=prevN;
-            prevN=mid;
-            mid=temp;
-        }
-
-        return prevN;
-    }
-
     void reorderList(ListNode* head) {
-        if(!head || !head->next || !head->next->next){
-            return;
+
+        // Finding mid 
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        
-        ListNode *slow=head, *fast=head, *first=head;
 
-        while(fast!=nullptr && fast->next!=nullptr) {
-            slow=slow->next;
-            fast=fast->next->next;
+        // Reversing second half of the LL
+        ListNode* second = slow->next;
+        ListNode* prev = nullptr;
+        slow->next = nullptr;
+
+        while (second) {
+            ListNode* tmp = second->next;
+            second->next = prev;
+            prev = second;
+            second = tmp;
         }
 
-        ListNode *second = reverseList(slow->next);
-        slow->next=nullptr;
+        // Reordering the LL
+        ListNode* first = head;
+        second = prev;
 
-        while(second) {
+        while (second) {
             ListNode* tmp1 = first->next;
             ListNode* tmp2 = second->next;
-
             first->next = second;
             second->next = tmp1;
-
             first = tmp1;
             second = tmp2;
         }
