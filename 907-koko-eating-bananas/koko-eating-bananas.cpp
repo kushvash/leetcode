@@ -9,6 +9,8 @@ public:
             if(b%speed!=0) {
                 hours++;
             }
+
+            if (hours > h) return false; // ea
         }
 
         return hours<=h;
