@@ -20,23 +20,17 @@ public:
 
             if(l1) {
                 x=l1->val;
+                l1=l1->next;
             }
             if(l2) {
                 y=l2->val;
+                l2=l2->next;
             }
         
             int sum = carry + x + y;
             carry = sum / 10;
             curr->next = new ListNode(sum % 10);
             curr = curr->next;
-            
-            if(l1) {
-                l1=l1->next;
-            }
-
-            if(l2) {
-                l2=l2->next;
-            }
         }
 
         ListNode* result = dummyHead->next;
