@@ -11,19 +11,18 @@
  */
 class Solution {
 public:
-    void invertTreeHelper(TreeNode* node){
-        if(!node){
+    void invertTreeHelper(TreeNode* root) {
+        if(!root) {
             return;
         }
 
-        TreeNode* temp=node->left;
-        node->left=node->right;
-        node->right=temp;
-
-        invertTreeHelper(node->left);
-        invertTreeHelper(node->right);
+        TreeNode* temp;
+        temp=root->left;
+        root->left=root->right;
+        root->right=temp;
+        invertTreeHelper(root->left);
+        invertTreeHelper(root->right);
     }
-
     TreeNode* invertTree(TreeNode* root) {
         invertTreeHelper(root);
 
