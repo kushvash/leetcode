@@ -15,13 +15,13 @@ public:
         if(!root) {
             return;
         }
-        invertTreeHelper(root->left);
-        invertTreeHelper(root->right);
-        
+
         TreeNode* temp;
         temp=root->left;
         root->left=root->right;
         root->right=temp;
+        invertTreeHelper(root->left);
+        invertTreeHelper(root->right);
     }
     TreeNode* invertTree(TreeNode* root) {
         invertTreeHelper(root);
