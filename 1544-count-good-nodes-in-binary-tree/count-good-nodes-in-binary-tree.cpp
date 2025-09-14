@@ -11,23 +11,24 @@
  */
 class Solution {
 public:
-    int goodNodesHelper(TreeNode* root, int currMax){
-        if(!root){
-            return 0;
+    void goodNodesHelper(TreeNode* node, int maxEle, int& res) {
+        if(!node) {
+            return;
         }
 
-        int nextMax=max(currMax, root->val);
-        int leftAns=goodNodesHelper(root->left, nextMax);
-        int rightAns=goodNodesHelper(root->right, nextMax);
-
-        if(root->val>=currMax){
-            return (1+leftAns+rightAns);
+        if(node->val>=maxEle) {
+            res++;
         }
 
-        return leftAns+rightAns;
+        goodNodesHelper(node->left, max(maxEle, node->val), res);
+        goodNodesHelper(node->right, max(maxEle, node->val), res);        
     }
 
     int goodNodes(TreeNode* root) {
-        return goodNodesHelper(root, INT_MIN);    
+        int res=0;
+
+        goodNodesHelper(root, INT_MIN, res);
+
+        return res;
     }
 };
