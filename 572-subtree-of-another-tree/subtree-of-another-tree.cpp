@@ -11,27 +11,45 @@
  */
 class Solution {
 public:
-    bool isSame(TreeNode* root, TreeNode* subRoot) {
-        if(!root && !subRoot){
-            return true;
-        }
-        
-        if(((root && !subRoot) || (!root && subRoot)) || root->val!=subRoot->val){
+    bool isSameTree(TreeNode* node1, TreeNode* node2) {
+        if(node1 && !node2) {
             return false;
         }
+        if(!node1 && node2) {
+            return false;
+        }
+        if(!node1 && !node2) {
+            return true;
+        }
 
-        return (isSame(root->left, subRoot->left) && isSame(root->right, subRoot->right));
+        if(node1->val==node2->val) {
+            return isSameTree(node1->left, node2->left) && isSameTree(node1->right, node2->right);
+        }
+        
+        return false;
     }
+
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        if((!root && subRoot) || (root && !subRoot)){
-            return false;
-        }
-        
+        queue<TreeNode*> q;
 
-        if(isSame(root, subRoot)){
-            return true;
+        q.push(root);
+
+        while(!q.empty()) {
+            TreeNode* temp=q.front();
+            q.pop();
+            if(temp->val==subRoot->val) {
+                if(isSameTree(temp, subRoot)) {
+                    return true;
+                }
+            }
+            if(temp->left) {
+                q.push(temp->left);
+            }
+            if(temp->right) {
+                q.push(temp->right);
+            }
         }
 
-        return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+        return false;
     }
 };
