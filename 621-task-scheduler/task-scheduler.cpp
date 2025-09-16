@@ -27,7 +27,8 @@ public:
             }
 
             if (!pq.empty()) {
-                int cnt = pq.top(); pq.pop();     
+                int cnt = pq.top(); 
+                pq.pop();     
                 cnt--;
                 if (cnt > 0) {
                     q.push({cnt, time + n + 1});
