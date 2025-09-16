@@ -1,45 +1,40 @@
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        if(n==0){
-            return tasks.size();
-        }
-
-        vector<int> count(26, 0);
-
-        for(char c: tasks){
-            count[c-'A']++;
-        }
-
         priority_queue<int> pq;
+        queue<pair<int, int>> q;
+        int time=0;
+        unordered_map<char, int> map;
 
-        for(int i: count){
-            if(i>0){
-                pq.push(i);
-            }
+        for(char& c: tasks) {
+            map[c]++;
         }
 
-        queue<pair<int, int>> q;
-        
-        int time=0;
+        for(auto& [_, cnt]: map) {
+            pq.push(cnt);
+        }
 
-        while(!pq.empty() || !q.empty()){
-            time++;
-
-            if(pq.empty()){
-                time=q.front().second;
-            }else{
-                int cnt=pq.top()-1;
-                pq.pop();
-                if(cnt>0){
-                    q.push({cnt, time+n});
+        while(!pq.empty() || !q.empty()) {
+            if(pq.empty()) {
+                if(q.front().second>time) {
+                    time = q.front().second;
                 }
             }
 
-            if(!q.empty() && q.front().second==time){
+            while (!q.empty() && q.front().second <= time) {
                 pq.push(q.front().first);
                 q.pop();
             }
+
+            if (!pq.empty()) {
+                int cnt = pq.top(); pq.pop();     
+                cnt--;
+                if (cnt > 0) {
+                    q.push({cnt, time + n + 1});
+                }
+            }
+
+            time++;
         }
 
         return time;
