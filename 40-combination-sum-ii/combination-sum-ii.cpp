@@ -4,7 +4,7 @@ public:
         if(target==0) {
             res.push_back(curr);
             return;
-        }if(target<0 || i>=candidates.size()) {
+        }if(target<0 || i==candidates.size()) {
             return;
         }
 
