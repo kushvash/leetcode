@@ -1,28 +1,29 @@
 class Solution {
 public:
-    void permuteHelper(vector<int>& nums, vector<bool>& used, vector<int> curr, vector<vector<int>>& res) {
-        if(curr.size()==nums.size()){
+    void permuteHelper(vector<int>& nums, vector<bool>& record, vector<int>& curr, vector<vector<int>>& res) {
+        if(curr.size()==nums.size()) {
             res.push_back(curr);
             return;
         }
 
-        for(int i=0; i<nums.size(); i++){
-            if(!used[i]){
-                curr.push_back(nums[i]);
-                used[i]=true;
-                permuteHelper(nums, used, curr, res);
-                curr.pop_back();
-                used[i]=false;
+        for(int i=0; i<nums.size(); i++) {
+            if(record[i]) {
+                continue;
             }
+
+            record[i]=true;
+            curr.push_back(nums[i]);
+            permuteHelper(nums, record, curr, res);
+            curr.pop_back();
+            record[i]=false;
         }
     }
-
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<bool> used(nums.size(), false); 
-        vector<int> curr;
+        vector<bool> record(nums.size(), false); 
+        vector<int> curr; 
         vector<vector<int>> res;
 
-        permuteHelper(nums, used, curr, res);
+        permuteHelper(nums, record, curr, res);
 
         return res;
     }
