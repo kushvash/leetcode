@@ -1,53 +1,44 @@
 class Solution {
 public:
-    int maxAreaOfIslandHelper(int row, int col, vector<vector<int>>& grid) {
-        int m=grid.size(), n=grid[0].size(), count=1;
+    vector<vector<int>> dirs={
+        {1,0}, {-1,0}, {0,1}, {0,-1}
+    };
 
+    int areaOfIsland(vector<vector<int>>& grid, int i, int j) {
         queue<pair<int, int>> q;
+        grid[i][j]=0;
+        q.push({i, j});
+        int area=1;
 
-        q.push({row, col});
-        grid[row][col]=0;
-
-        while(!q.empty()){
-            int r=q.front().first, c=q.front().second;
+        while(!q.empty()) {
+            pair<int, int> curr = q.front();
             q.pop();
 
-            if(r!=0 && grid[r-1][c]==1){
-                q.push({r-1,c});
-                grid[r-1][c]=0;
-                count++;
-            }
-            if(c!=0 && grid[r][c-1]==1){
-                q.push({r,c-1});
-                grid[r][c-1]=0;
-                count++;
-            }
-            if(r!=m-1 && grid[r+1][c]==1){
-                q.push({r+1,c});
-                grid[r+1][c]=0;
-                count++;
-            }
-            if(c!=n-1 && grid[r][c+1]==1){
-                q.push({r,c+1});
-                grid[r][c+1]=0;
-                count++;
+            for(int k=0; k<4; k++) {
+                int tempX=curr.first+dirs[k][0];
+                int tempY=curr.second+dirs[k][1];
+                
+                if(tempX>=0 && tempX<grid.size() && tempY>=0 && tempY<grid[0].size() && grid[tempX][tempY]==1) {
+                    grid[tempX][tempY]=0;
+                    q.push({tempX, tempY});
+                    area++;
+                }
             }
         }
-        return count;
+        return area;
     }
 
     int maxAreaOfIsland(vector<vector<int>>& grid) {
-        int m=grid.size(), n=grid[0].size(), ans=0;
+        int maxArea=0, m=grid.size(), n=grid[0].size();
 
-        for(int i=0; i<m; i++){
-            for(int j=0; j<n; j++){
-                if(grid[i][j]==1){
-                    ans=max(ans, maxAreaOfIslandHelper(i, j, grid));
+        for(int i=0; i<m; i++) {
+            for(int j=0; j<n; j++) {
+                if(grid[i][j]==1) {
+                    maxArea=max(maxArea, areaOfIsland(grid, i, j));
                 }
             }
         }
 
-
-        return ans;
+        return maxArea;
     }
 };
