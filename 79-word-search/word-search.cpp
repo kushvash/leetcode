@@ -1,36 +1,25 @@
 class Solution {
 public:
-    bool existHelper(vector<vector<char>>& board, vector<vector<bool>>& visited, string word, int start, int currR, int currC) {
-        if(start==word.size()){
+    bool existHelper(vector<vector<char>>& board, string& word, int i, int j, int k, vector<vector<bool>>& visited) {
+        if(k==word.size()) {
             return true;
         }
-        if(currR>=board.size() || currR<0) {
-            return false;
-        }
-        if(currC>=board[0].size() || currC<0) {
-            return false;
-        }
-        if(visited[currR][currC] || board[currR][currC]!=word[start]) {
+        if(i<0 || j<0 || i>=board.size() || j>=board[0].size() || visited[i][j] || word[k]!=board[i][j]) {
             return false;
         }
 
-        visited[currR][currC]=true;
-
-        bool ans = (existHelper(board, visited, word, start+1, currR+1, currC) || existHelper(board, visited, word, start+1, currR, currC+1) || existHelper(board, visited, word, start+1, currR-1, currC) || existHelper(board, visited, word, start+1, currR, currC-1));
-
-        visited[currR][currC]=false;
-
+        visited[i][j]=true;
+        bool ans=existHelper(board, word, i+1, j, k+1, visited) || existHelper(board, word, i, j+1, k+1, visited) || existHelper(board, word, i-1, j, k+1, visited) || existHelper(board, word, i, j-1, k+1, visited);
+        visited[i][j]=false;
         return ans;
     }
 
     bool exist(vector<vector<char>>& board, string word) {
-        
         vector<vector<bool>> visited(board.size(), vector<bool>(board[0].size(), false));
-        // bool res=false;
 
         for(int i=0; i<board.size(); i++) {
             for(int j=0; j<board[0].size(); j++) {
-                if(existHelper(board, visited, word, 0, i, j)){
+                if(existHelper(board, word, i, j, 0, visited)) {
                     return true;
                 }
             }
