@@ -1,34 +1,40 @@
 class Solution {
 public:
-    vector<string> keyBoard={
-        {""}, {""}, {"abc"}, {"def"}, {"ghi"}, {"jkl"}, {"mno"}, {"pqrs"}, {"tuv"}, {"wxyz"}
-    };
-
-    void helper(string digits, int i, string& curr, vector<string>& res) {
-        if(i==digits.size()) {
-            res.push_back(curr);
+    void letterCombinationsHelper(string& digits, int start, string& currSet, vector<string>& res) {
+        if(start==digits.size()){
+            if(currSet.size()>0){
+                res.push_back(currSet);
+            }
             return;
         }
 
-        int dig=digits[i]-'0';
-        
-        for(int j=0; j<keyBoard[dig].size(); j++) {    
-            char c=keyBoard[dig][j];
-            curr.push_back(c);
-            helper(digits, i+1, curr, res);
-            curr.pop_back();
+        for(int i=0; i<dict[digits[start]].size(); i++) {
+            currSet.push_back(dict[digits[start]][i]);
+            letterCombinationsHelper(digits, start+1, currSet, res);
+            currSet.pop_back();        
         }
+
+        return;
     }
-
-    vector<string> letterCombinations(string digits) {
-        string curr;
-        vector<string> res;
-        if(digits.size()==0) {
-            return {};
-        }
-
-        helper(digits, 0, curr, res);
     
+    unordered_map<char, string> dict = {
+        {'2' , "abc"},
+        {'3' , "def"},
+        {'4' , "ghi"},
+        {'5' , "jkl"},
+        {'6' , "mno"},
+        {'7' , "pqrs"},
+        {'8' , "tuv"},
+        {'9' , "wxyz"}
+    };
+    
+    vector<string> letterCombinations(string digits) {
+        vector<string> res;
+        
+        string currSet="";
+
+        letterCombinationsHelper(digits, 0, currSet, res);
+
         return res;
     }
 };
