@@ -8,38 +8,21 @@ public:
         int n=s.size(), res=0;
 
         for(int i=0; i<n; i++) {
-            if(s[i]=='I') {
-                if(i<n-1 && s[i+1]=='V') {
-                    res+=4;
-                    i++;
-                }else if(i<n-1 && s[i+1]=='X') {
-                    res+=9;
-                    i++;
-                }else {
-                    res+=record[s[i]];
-                }
-            }else if(s[i]=='X') {
-                if(i<n-1 && s[i+1]=='L') {
-                    res+=40;
-                    i++;
-                }else if(i<n-1 && s[i+1]=='C') {
-                    res+=90;
-                    i++;
-                }else {
-                    res+=record[s[i]];
-                }
-            }else if(s[i]=='C') {
-                if(i<n-1 && s[i+1]=='D') {
-                    res+=400;
-                    i++;
-                }else if(i<n-1 && s[i+1]=='M') {
-                    res+=900;
-                    i++;
-                }else {
-                    res+=record[s[i]];    
-                }
+            char currentSymbol = s[i];
+            int currentValue = record[currentSymbol];
+            int nextValue = 0;
+            // If a next value exists
+            if (i + 1 < s.length()) {
+                char nextSymbol = s[i + 1];
+                nextValue = record[nextSymbol];
+            }
+
+            // If this is the subtractive case.
+            if (currentValue < nextValue) {
+                res += (nextValue - currentValue);
+                i++;
             }else {
-                res+=record[s[i]];
+                res += currentValue;
             }
         }
 
