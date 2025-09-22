@@ -18,9 +18,12 @@ public:
             }
             ans[key].push_back(s);
         }
+        
         vector<vector<string>> result;
-        for (auto itr = ans.begin(); itr != ans.end(); ++itr)
-            result.push_back(itr->second);
+        
+        for (auto& itr: ans) {
+            result.push_back(itr.second);
+        }
         return result;
     }
 };
