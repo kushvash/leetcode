@@ -13,9 +13,6 @@ public:
                 key += "#";
                 key += to_string(count[i]);
             }
-            // if (ans.find(key) == ans.end()) {
-            //     ans[key] = vector<string>();
-            // }
             ans[key].push_back(s);
         }
         
