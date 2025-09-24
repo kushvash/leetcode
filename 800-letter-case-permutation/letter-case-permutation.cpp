@@ -2,20 +2,22 @@ class Solution {
 public:
     void dfs(string& s, int i, vector<string>& res) {
         // advance to next letter
-        while (i < (int)s.size() && !isalpha(s[i])) ++i;
+        while (i < s.size() && !isalpha(s[i])) {
+            i++;
+        }
 
-        if (i == (int)s.size()) {            // one permutation ready
+        if (i == s.size()) {            // one permutation ready
             res.push_back(s);
             return;
         }
 
         // branch: lowercase
         char orig = s[i];
-        s[i] = tolower(static_cast<unsigned char>(orig));
+        s[i] = tolower(orig);
         dfs(s, i + 1, res);
 
         // branch: uppercase
-        s[i] = toupper(static_cast<unsigned char>(orig));
+        s[i] = toupper(orig);
         dfs(s, i + 1, res);
 
         // restore (not strictly needed since we overwrite both branches, but good hygiene)
@@ -31,7 +33,6 @@ public:
             }
         }
         vector<string> res;
-        res.reserve(1 << k);
 
         dfs(s, 0, res);
         return res;
