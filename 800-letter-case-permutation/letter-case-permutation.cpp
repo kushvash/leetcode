@@ -6,7 +6,7 @@ public:
             i++;
         }
 
-        if (i == s.size()) {            // one permutation ready
+        if (i == s.size()) {
             res.push_back(s);
             return;
         }
@@ -19,19 +19,9 @@ public:
         // branch: uppercase
         s[i] = toupper(orig);
         dfs(s, i + 1, res);
-
-        // restore (not strictly needed since we overwrite both branches, but good hygiene)
-        s[i] = orig;
     }
 
     vector<string> letterCasePermutation(string s) {
-        // reserve to avoid reallocations
-        int k = 0;
-        for (char c : s) {
-            if (isalpha(c)) {   
-                k++;
-            }
-        }
         vector<string> res;
 
         dfs(s, 0, res);
