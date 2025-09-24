@@ -1,33 +1,39 @@
 class Solution {
 public:
-    void helper(string s, int i, string curr, vector<string>& res) {
-        while(i<s.size() && !(isalpha(s[i]))) {
-            curr.push_back(s[i]);
-            i++;
-        }
+    void dfs(string& s, int i, vector<string>& res) {
+        // advance to next letter
+        while (i < (int)s.size() && !isalpha(s[i])) ++i;
 
-        if(i==s.size()) {
-            res.push_back(curr);
+        if (i == (int)s.size()) {            // one permutation ready
+            res.push_back(s);
             return;
         }
 
-        // using lowercase
-        curr.push_back(tolower(s[i]));
-        helper(s, i+1, curr, res);
-        
-        curr.pop_back();
+        // branch: lowercase
+        char orig = s[i];
+        s[i] = tolower(static_cast<unsigned char>(orig));
+        dfs(s, i + 1, res);
 
-        // using uppercase
-        curr.push_back(toupper(s[i]));
-        helper(s, i+1, curr, res);
+        // branch: uppercase
+        s[i] = toupper(static_cast<unsigned char>(orig));
+        dfs(s, i + 1, res);
+
+        // restore (not strictly needed since we overwrite both branches, but good hygiene)
+        s[i] = orig;
     }
 
     vector<string> letterCasePermutation(string s) {
-        string curr="";
+        // reserve to avoid reallocations
+        int k = 0;
+        for (char c : s) {
+            if (isalpha(c)) {   
+                k++;
+            }
+        }
         vector<string> res;
+        res.reserve(1 << k);
 
-        helper(s, 0, curr, res);
-
+        dfs(s, 0, res);
         return res;
     }
 };
