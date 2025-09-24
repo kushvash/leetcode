@@ -12,9 +12,6 @@ public:
 class Solution {
 public:
     Node* lowestCommonAncestor(Node* p, Node * q) {
-        if (!p || !q) {
-            return nullptr;
-        }
         Node* a = p;
         Node* b = q;
         while (a != b) {
