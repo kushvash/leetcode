@@ -1,36 +1,26 @@
 class Solution {
 public:
-    void allPathsSourceTargetHelper(vector<vector<int>>& graph, unordered_set<int>& visited, int ele, int n, vector<int>& curr, vector<vector<int>>& res) {
-        if(ele==n) {
-            res.push_back(curr);
-            return;
-        }
+    vector<vector<int>> dfs(int u, int target, const vector<vector<int>>& g, vector<vector<vector<int>>>& memo) {
+        if (!memo[u].empty()) return memo[u];
+        if (u == target) return memo[u] = {{target}};
 
-        for(int& i: graph[ele]) {
-            if(visited.find(i)==visited.end()) {
-                visited.insert(i);
-                curr.push_back(i);
-
-                allPathsSourceTargetHelper(graph, visited, i, n, curr, res);
-
-                curr.pop_back();
-                visited.erase(i);
+        vector<vector<int>> res;
+        for (int v : g[u]) {
+            auto tails = dfs(v, target, g, memo);
+            for (auto& path : tails) {
+                vector<int> p; p.reserve(path.size() + 1);
+                p.push_back(u);
+                p.insert(p.end(), path.begin(), path.end());
+                res.push_back(std::move(p));
             }
         }
+        return memo[u] = std::move(res);
     }
     
     vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
-        unordered_set<int> visited;
-        vector<int> curr;
-        curr.push_back(0);
-        vector<vector<int>> res;
-
-        int n=graph.size();
-
-
-
-        allPathsSourceTargetHelper(graph, visited, 0, graph.size()-1, curr, res);
-    
-        return res;
+        int target = graph.size() - 1;
+        vector<vector<vector<int>>> memo(graph.size());
+        vector<int> cur; cur.push_back(0);
+        return dfs(0, target, graph, memo);
     }
 };
