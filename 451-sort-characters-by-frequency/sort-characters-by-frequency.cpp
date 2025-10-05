@@ -7,19 +7,23 @@ public:
             freq[c]++;
         }
 
-        priority_queue<pair<int, char>> maxHeap;
-        
+        vector<vector<char>> bucket(s.size()+1);
+
         string res;
 
         for(auto& [c, f]: freq) {
-            maxHeap.push({f, c});
+            bucket[f].push_back(c);
         }
 
-        while(!maxHeap.empty()) {
-            auto [tempF, tempC]=maxHeap.top();
-            maxHeap.pop();
+        for(int i=s.size(); i>0; i--) {
+            if(bucket[i].empty()) {
+                continue;
+            }
 
-            res.append(tempF, tempC);
+            while(!bucket[i].empty()) {
+                res.append(i, bucket[i].back());
+                bucket[i].pop_back();
+            }
         }
 
         return res;   
