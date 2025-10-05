@@ -3,6 +3,7 @@ public:
     void allPathsSourceTargetHelper(vector<vector<int>>& graph, unordered_set<int>& visited, int ele, int n, vector<int>& curr, vector<vector<int>>& res) {
         if(ele==n) {
             res.push_back(curr);
+            return;
         }
 
         for(int& i: graph[ele]) {
@@ -19,7 +20,6 @@ public:
     }
     
     vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
-        // unordered_map<int, vector<int>> newGraph;
         unordered_set<int> visited;
         vector<int> curr;
         curr.push_back(0);
