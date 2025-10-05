@@ -19,9 +19,7 @@ public:
             auto [tempF, tempC]=maxHeap.top();
             maxHeap.pop();
 
-            while(tempF--) {
-                res.push_back(tempC);
-            }
+            res.append(tempF, tempC);
         }
 
         return res;   
