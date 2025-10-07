@@ -4,23 +4,22 @@ public:
         int n=s.size();
         unordered_map<char, int> record;
 
-        for(int i=0; i<n; i++){
+        for(int i=0; i<n; i++) {
             record[s[i]]=i;
         }
 
-        vector<int> ans;
-        int size=0, end=0;
+        int lastOccur=record[s[0]], i=0, j=0;
+        vector<int> res;
 
-        for(int i=0; i<n; i++){
-            size++;
-            end=max(end, record[s[i]]);
-
-            if(i==end){
-                ans.push_back(size);
-                size=0;
+        while(j<n) {
+            lastOccur = max(lastOccur, record[s[j]]);
+            if(j==lastOccur) {
+                res.push_back(j-i+1);
+                i=j+1;
             }
+            j++;
         }
 
-        return ans;
+        return res;
     }
 };
