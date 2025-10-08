@@ -17,7 +17,7 @@ public:
             node = node->left;
         }
     }
-    
+
     vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
         stack<TreeNode*> s1, s2;
         vector<int> res;
