@@ -8,13 +8,10 @@ public:
         int count=0;
         for(char c: s) {
             if(vowels.find(c)!=vowels.end()) {
-                count++;
+                return true;
             }
         }
-        if(count==0) {
-            return false;
-        }
-
-        return true;
+    
+        return false;
     }
 };
