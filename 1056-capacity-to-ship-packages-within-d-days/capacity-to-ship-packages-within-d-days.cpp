@@ -4,10 +4,6 @@ public:
         int currDay=1, currW=0;
 
         for(int w: weights) {
-            // if (w > cap) {
-            //     return false;
-            // }
-
             if (currW + w > cap) {
                 currDay++;
                 currW = w;
