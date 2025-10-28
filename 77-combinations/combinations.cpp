@@ -5,10 +5,10 @@ public:
             res.push_back(curr);
             return;
         }
-        if(i>n) {
+        if (curr.size() + (n - i + 1) < k) {
             return;
         }
-
+        
         // using the current element
         curr.push_back(i);
         combineHelper(n, k, i+1, curr, res);
@@ -17,6 +17,7 @@ public:
         // not using the current element
         combineHelper(n, k, i+1, curr, res);
     }
+
     vector<vector<int>> combine(int n, int k) {
         vector<int> curr;
         vector<vector<int>> res;
