@@ -15,15 +15,12 @@ public:
         int i=0;
         stack<TreeNode*> st;
         TreeNode* node=root;
-        
-        while(true) {
-            if(node!=NULL) {
+
+        while(node || !st.empty()) {
+            if(node) {
                 st.push(node);
                 node=node->left;
             }else {
-                if(st.empty()) {
-                    break;
-                }
                 node=st.top();
                 st.pop();
                 i++;
