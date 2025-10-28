@@ -1,37 +1,27 @@
 class Solution {
 public:
-    void combineHelper(int& n, int& k, int currNum, vector<int>& currSet, vector<vector<int>>& res) {
-        if(currSet.size()==k) {
-            res.push_back(currSet);
+    void combineHelper(int n, int k, int i, vector<int>& curr, vector<vector<int>>& res) {
+        if(curr.size()==k) {
+            res.push_back(curr);
             return;
         }
-        if(currSet.size()>k || currNum>n) {
+        if(i>n) {
             return;
         }
 
-        // excluding currNum
-        combineHelper(n, k, currNum+1, currSet, res);
-        // including currNum
-        currSet.push_back(currNum);
-        combineHelper(n, k, currNum+1, currSet, res);
-        currSet.pop_back();
+        // using the current element
+        curr.push_back(i);
+        combineHelper(n, k, i+1, curr, res);
+        curr.pop_back();
 
-
-        // for(int i=currNum; i<=n; i++) {
-        //     currSet.push_back(i);
-        //     combineHelper(n, k, i+1, currSet, res);
-        //     currSet.pop_back();
-        // }
-
-
-        return;
+        // not using the current element
+        combineHelper(n, k, i+1, curr, res);
     }
-
     vector<vector<int>> combine(int n, int k) {
-        vector<int> currSet; 
+        vector<int> curr;
         vector<vector<int>> res;
 
-        combineHelper(n, k, 1, currSet, res);
+        combineHelper(n, k, 1, curr, res);
 
         return res;
     }
