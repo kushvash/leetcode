@@ -15,8 +15,7 @@ public:
         int i=0;
         stack<TreeNode*> st;
         TreeNode* node=root;
-        st.push(root);
-
+        
         while(true) {
             if(node!=NULL) {
                 st.push(node);
