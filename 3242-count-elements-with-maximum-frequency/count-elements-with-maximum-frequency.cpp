@@ -9,13 +9,12 @@ public:
             maxCount=max(maxCount, mp[i]);    
         }
 
-        for(auto [num, count]: mp) {
+        for(const auto& [num, count]: mp) {
             if(count==maxCount) {
                 c++;
             }
         }
 
         return c*maxCount;
-
     }
 };
