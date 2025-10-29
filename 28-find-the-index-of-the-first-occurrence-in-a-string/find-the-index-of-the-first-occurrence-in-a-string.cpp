@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool helper(string haystack, string needle, int i) {
+    bool helper(string& haystack, string& needle, int i) {
         for(int j=0; j<needle.size(); j++) {
             if(haystack[i]!=needle[j]) {
                 return false;
