@@ -1,28 +1,26 @@
 class Solution {
 public:
-    bool validPalindromeHelper(string s, int l, int r) {
-        while(l<r) {
-            if(s[l]!=s[r]){
+    bool validPalindromeHelper(string s, int i, int j) {
+        while(i<j) {
+            if(s[i]!=s[j]) {
                 return false;
             }
-            l++;
-            r--;
-            
+            i++;
+            j--;
         }
 
         return true;
     }
-
+    
     bool validPalindrome(string s) {
-        int l=0, r=s.size()-1;
+        int i=0, j=s.size()-1;
 
-        while(l<r) {
-            if(s[l]!=s[r]){
-                return (validPalindromeHelper(s, l, r-1) || validPalindromeHelper(s, l+1, r));
-            }else{
-                l++;
-                r--;
+        while(i<j) {
+            if(s[i]!=s[j]) {
+                return (validPalindromeHelper(s, i+1, j) || validPalindromeHelper(s, i, j-1));
             }
+            i++;
+            j--;
         }
 
         return true;
