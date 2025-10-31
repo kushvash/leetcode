@@ -30,7 +30,7 @@ public:
                     if(nextX<0 || nextX>=rooms.size() || nextY<0 || nextY>=rooms[0].size()) {
                         continue;
                     }
-                    if(rooms[nextX][nextY]==-1 || dist+1>=rooms[nextX][nextY]) {
+                    if(rooms[nextX][nextY]==-1 || dist+1>=rooms[nextX][nextY] || rooms[nextX][nextY]==0) {
                         continue;
                     }
 
