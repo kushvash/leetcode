@@ -3,37 +3,40 @@ public:
     RandomizedSet() {
         
     }
-    
-    unordered_map<int, int> record;
-    // int i=0;
-    vector<int> arr;
 
+    vector<int> directory;
+    unordered_map<int, int> valToIndex;
+    
     bool insert(int val) {
-        if(record.find(val)!=record.end()){
+        if(valToIndex.find(val)!=valToIndex.end()) {
             return false;
         }
-        record[val]=arr.size();
-        arr.push_back(val);
+
+        valToIndex[val]=directory.size();
+        directory.push_back(val);
         return true;
     }
     
     bool remove(int val) {
-        if(record.find(val)==record.end()){
+        if(valToIndex.find(val)==valToIndex.end()) {
             return false;
         }
-        int i=arr.size();
-        record[arr[i-1]]=record[val];
-        swap(arr[record[val]], arr[i-1]);
-        arr.pop_back();
-        record.erase(val);
+
+        int index=valToIndex[val];
+        int newNum=directory.back();
+
+        directory[index]=newNum;
+
+        valToIndex[newNum]=index;
+        valToIndex.erase(val);
+        directory.pop_back();
+
         return true;
     }
     
     int getRandom() {
-        int i=arr.size();
-        int randomIndex = rand() % i;
-
-        return arr[randomIndex];
+        int index=rand() % directory.size();
+        return directory[index];
     }
 };
 
