@@ -1,54 +1,52 @@
 class Solution {
 public:
-    vector<pair<int, int>> dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
-    
     vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
-        int m=heights.size(), n=heights[0].size();
+        int m = heights.size(), n = heights[0].size();
+        vector<vector<int>> canReach(m, vector<int>(n, 0));
         vector<vector<int>> res;
-        vector<vector<bool>> pac(m, vector<bool>(n, false));
-        vector<vector<bool>> atl(m, vector<bool>(n, false));
-        queue<pair<int, int>> pacQ, atlQ;
 
-        for(int i=0; i<m; i++){
-            pacQ.push({i, 0});
-            atlQ.push({i, n-1});
+        queue<pair<int,int>> pacific, atlantic;
+
+        // Initialize boundary cells
+        for(int i = 0; i < m; i++) {
+            pacific.push({i, 0});
+            atlantic.push({i, n - 1});
+        }
+        for(int j = 0; j < n; j++) {
+            pacific.push({0, j});
+            atlantic.push({m - 1, j});
         }
 
-        for(int j=0; j<n; j++){
-            pacQ.push({0,j});
-            atlQ.push({m-1, j});
-        }
-
-        bfs(pacQ, pac, heights);
-        bfs(atlQ, atl, heights);
-        
-        for(int i=0; i<m; i++){
-            for(int j=0; j<n; j++){
-                if(pac[i][j] && atl[i][j]){
-                    res.push_back({i, j});
-                }
-            }
-        }
+        bfs(heights, canReach, pacific, 1, res); // mark Pacific as 1
+        bfs(heights, canReach, atlantic, 2, res); // mark Atlantic as 2
 
         return res;
     }
 
-    void bfs(queue<pair<int, int>> &q, vector<vector<bool>> &ocean, vector<vector<int>>& heights){
-        while(!q.empty()){
-            int row=q.front().first;
-            int col=q.front().second;
-            ocean[row][col]=true;
+    void bfs(vector<vector<int>>& heights, vector<vector<int>>& canReach,
+             queue<pair<int,int>> q, int ocean, vector<vector<int>>& res) {
+
+        int m = heights.size(), n = heights[0].size();
+        vector<vector<bool>> visited(m, vector<bool>(n, false));
+        vector<pair<int,int>> dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+
+        while(!q.empty()) {
+            auto [x, y] = q.front();
             q.pop();
-            
-            for(int i=0; i<4; i++){
-                int r=row+dirs[i].first;
-                int c=col+dirs[i].second;
 
-                if(r<0 || c<0 || r>=heights.size() || c>=heights[0].size() || heights[r][c]<heights[row][col] || ocean[r][c]){
-                    continue;
-                }
+            if(visited[x][y]) continue;
+            visited[x][y] = true;
 
-                q.push({r, c});
+            canReach[x][y] += ocean; // mark which ocean this cell can reach
+            if(canReach[x][y] == 3)  // 1|2 == 3 → both oceans
+                res.push_back({x, y});
+
+            for(auto [dx, dy] : dirs) {
+                int nx = x + dx, ny = y + dy;
+                if(nx < 0 || ny < 0 || nx >= m || ny >= n) continue;
+                if(visited[nx][ny]) continue;
+                if(heights[nx][ny] < heights[x][y]) continue; // water can't flow uphill
+                q.push({nx, ny});
             }
         }
     }
