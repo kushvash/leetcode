@@ -12,9 +12,9 @@ public:
         }
 
         for(char c: t) {
-            if(mp.find(c)==mp.end() || mp[c]==0) {
-                return false;
-            }
+            // if(mp.find(c)==mp.end() || mp[c]==0) {
+            //     return false;
+            // }
 
             mp[c]--;
         }
