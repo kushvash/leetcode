@@ -14,7 +14,7 @@ public:
             return a.first < b.first;
         };
 
-        priority_queue<pair<int, int>> pq;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(cmp)> pq;
 
 
         for(auto& [i, c] : mp) {
