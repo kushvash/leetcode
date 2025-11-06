@@ -7,7 +7,15 @@ public:
             mp[i]++;
         }
 
+        auto cmp=[] (pair<int, int> a, pair<int, int> b) {
+            if(a.first==b.first) {
+                return a.second>b.second;
+            }
+            return a.first < b.first;
+        };
+
         priority_queue<pair<int, int>> pq;
+
 
         for(auto& [i, c] : mp) {
             pq.push({c, i});
