@@ -8,33 +8,25 @@ public:
     }
     
     void push(int val) {
-        int currMin=val;
-        if(!minSt.empty()) {
-            currMin=minSt.top();
-        }
-
-        minSt.push(min(currMin, val));
         st.push(val);
+        if (minSt.empty()) {
+            minSt.push(val);
+        }
+        else {
+            minSt.push(min(val, minSt.top()));
+        }
     }
-    
+
     void pop() {
         st.pop();
         minSt.pop();
     }
-    
-    int top() {
-        if(st.empty()) {
-            return 0;
-        }
 
+    int top() {
         return st.top();
     }
-    
-    int getMin() {
-        if(st.empty()) {
-            return 0;
-        }
 
+    int getMin() {
         return minSt.top();
     }
 };
