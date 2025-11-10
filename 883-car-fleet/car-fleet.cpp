@@ -1,27 +1,24 @@
 class Solution {
 public:
     int carFleet(int target, vector<int>& position, vector<int>& speed) {
-        int n=position.size();
-        vector<pair<int, int>> cars;
+        int n=position.size(), res=1, prev=n-1;
+        vector<pair<int, int>> fleet;
 
-        for(int i=0; i<n; i++){
-            cars.push_back({position[i], speed[i]});
+        for(int i=0; i<n; i++) {
+            fleet.push_back({position[i], speed[i]});
         }
 
-        sort(cars.rbegin(), cars.rend());
+        sort(fleet.begin(), fleet.end());
 
-        int fleets=1;
-        double prevTime=(double)(target-cars[0].first)/cars[0].second;
+        for(int i=n-2; i>=0; i--) {
+            double timeTaken=(double)(target-fleet[i].first)/fleet[i].second;
 
-        for(int i=1; i<n; i++){
-            double currTime=(double)(target-cars[i].first)/cars[i].second;
-
-            if(currTime>prevTime){
-                prevTime=currTime;
-                fleets++;
+            if(timeTaken>(double)(target-fleet[prev].first)/fleet[prev].second) {
+                prev=i;
+                res++;
             }
         }
 
-        return fleets;
+        return res;
     }
 };
