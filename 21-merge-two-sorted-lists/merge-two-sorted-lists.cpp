@@ -10,26 +10,27 @@
  */
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        ListNode head(0);
-        ListNode *tempHead=&head;
-        while(list1 && list2) {
-            if(list1->val>list2->val) {
-                tempHead->next=list2;
-                list2=list2->next;
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* preHead=new ListNode(-1);
+        ListNode* prev=preHead;
+
+        while(l1 && l2) {
+            if(l1->val<=l2->val) {
+                prev->next=l1;
+                l1=l1->next;
             }else {
-                tempHead->next=list1;
-                list1=list1->next;
+                prev->next=l2;
+                l2=l2->next;
             }
-            tempHead=tempHead->next;
+            prev=prev->next;
         }
 
-        if(list1) {
-            tempHead->next=list1;
-        }else if(list2) {
-            tempHead->next=list2;
+        if(l1) {
+            prev->next=l1;
+        }else if(l2){
+            prev->next=l2;
         }
 
-        return head.next;
+        return preHead->next;
     }
 };
