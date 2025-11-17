@@ -8,43 +8,44 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-
 class Solution {
 public:
     void reorderList(ListNode* head) {
+        // Finding the mid
+        ListNode* slow=head;
+        ListNode* fast=head;
 
-        // Finding mid 
-        ListNode* slow = head;
-        ListNode* fast = head->next;
-
-        while (fast && fast->next) {
-            slow = slow->next;
-            fast = fast->next->next;
+        while(fast->next && fast->next->next) {
+            slow=slow->next;
+            fast=fast->next->next;
         }
 
-        // Reversing second half of the LL
-        ListNode* second = slow->next;
-        ListNode* prev = nullptr;
-        slow->next = nullptr;
+        // Reversing the second half of LinkedList
+        ListNode* secondHalf=slow->next;
+        slow->next=nullptr;
+        ListNode* prev=nullptr;
 
-        while (second) {
-            ListNode* tmp = second->next;
-            second->next = prev;
-            prev = second;
-            second = tmp;
+        while(secondHalf) {
+            ListNode* nextNode=secondHalf->next;
+            secondHalf->next=prev;
+            prev=secondHalf;
+            secondHalf=nextNode;
         }
 
-        // Reordering the LL
-        ListNode* first = head;
-        second = prev;
+        ListNode* leftLi=head; 
+        ListNode* rightLi=prev;
+    
+        while(rightLi && leftLi!=rightLi) {
+            ListNode* leftNext=leftLi->next;
+            ListNode* rightNext=rightLi->next;
 
-        while (second) {
-            ListNode* tmp1 = first->next;
-            ListNode* tmp2 = second->next;
-            first->next = second;
-            second->next = tmp1;
-            first = tmp1;
-            second = tmp2;
+            leftLi->next=rightLi;
+            rightLi->next=leftNext;
+
+            leftLi=leftNext;
+            rightLi=rightNext;
         }
+    
+        return;
     }
 };
