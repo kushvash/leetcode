@@ -1,22 +1,18 @@
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-        unordered_map<int, int> record;
-        record[0]=1;
+        int n=nums.size(), res=0;
 
-        int currSum=0, count=0;
-
-        for(int i: nums){
-            currSum+=i;
-
-            if(record.find(currSum-k)!=record.end()){
-                count+=record[currSum-k];
+        for(int i=0; i<n; i++) {
+            int sum=0;
+            for(int j=i; j<n; j++) {
+                sum+=nums[j];
+                if(sum==k) {
+                    res++;
+                }
             }
-
-            record[currSum]++;
         }
 
-        return count;
-
+        return res;
     }
 };
