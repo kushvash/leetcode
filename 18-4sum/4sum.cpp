@@ -37,14 +37,8 @@ public:
                         }
                     }else if(sum>target) {
                         r--;
-                        while(r>0 && nums[r]==nums[r+1]) {
-                            r--;
-                        }
                     }else {
                         l++;
-                        while(l<n && nums[l]==nums[l-1]){
-                            l++;
-                        }
                     }
                 }
             }
