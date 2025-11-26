@@ -2,27 +2,29 @@ class Solution {
 public:
     bool canJump(vector<int>& nums) {
         int n=nums.size();
-
-        if(n==1){
+        if(n==1) {
             return true;
         }
+        vector<bool> visited(n, false);
+        visited[0]=true;
 
-        vector<bool> dp(n, false);
-
-        dp[0]=true;
-
-        for(int i=0; i<n; i++){
-            if(!dp[i]){
-                break;
+        for(int currPos=0; currPos<n; currPos++) {
+            if(visited[currPos]==false) {
+                return false;
             }
-            for(int j=1; j<=nums[i]; j++){
-                // if(i+j>=n){
-                //     break;
-                // }
-                if(i+j==n-1){
-                    return true;
-                }
-                dp[i+j]=true;
+
+            int finalPos=currPos+nums[currPos];
+
+            if(finalPos>=n-1) {
+                return true;
+            }
+
+            if(visited[finalPos]) {
+                continue;
+            }
+
+            for(int tempPos=finalPos; tempPos>=currPos && visited[tempPos]==false; tempPos--) {
+                visited[tempPos]=true;
             }
         }
 
