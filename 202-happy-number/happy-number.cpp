@@ -1,28 +1,26 @@
 class Solution {
 public:
-    int isHappyHelper(int n) {
-        int ans=0;
-
-        while(n>0){
-            int temp=(n%10);
-            ans+=temp*temp;
+    int helper(int n) {
+        int res=0;
+        while(n>0) {
+            int dig=n%10;
+            res+=dig*dig;
             n/=10;
         }
 
-        return ans;
+        return res;
     }
     bool isHappy(int n) {
-        int slow=isHappyHelper(n);
-        int fast=isHappyHelper(isHappyHelper(n));
+        int slow=n, fast=helper(n);
 
-        while(slow!=fast){
-            if(fast==1){
-                return true;
+        while(fast!=1) {
+            if(slow==fast) {
+                return false;
             }
-            slow=isHappyHelper(slow);
-            fast=isHappyHelper(isHappyHelper(fast));
+            slow=helper(slow);
+            fast=helper(helper(fast));
         }
 
-        return slow==1;
+        return true;
     }
 };
