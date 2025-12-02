@@ -32,9 +32,9 @@ public:
             return 0;
         }
 
-        if(currCell==1 && (aliveCount==2 || aliveCount==3)) {
-            return 1;
-        }
+        // if(currCell==1 && (aliveCount==2 || aliveCount==3)) {
+        //     return 1;
+        // }
 
         if(aliveCount==3) {
             return 1;
