@@ -1,12 +1,20 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        int res=0;
+        unordered_set<int> helper;
 
         for(int& num: nums) {
-            res^=num;
+            if(helper.find(num)==helper.end()) {
+                helper.insert(num);
+            }else {
+                helper.erase(num);
+            }
         }
 
-        return res;
+        for(int num: helper) {
+            return num;
+        }
+
+        return 0;
     }
 };
