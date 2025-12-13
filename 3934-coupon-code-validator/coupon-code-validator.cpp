@@ -34,10 +34,9 @@ public:
         vector<string> order = {"electronics", "grocery", "pharmacy", "restaurant"};
 
         for(string& business: order) {
-            vector<string> code=mp[business];
-            sort(code.begin(), code.end());
+            sort(mp[business].begin(), mp[business].end());
 
-            for(string& c: code) {
+            for(string& c: mp[business]) {
                 res.push_back(c);
             }
         }
