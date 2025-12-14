@@ -5,7 +5,7 @@ public:
 
         // Your original single-pass logic, but using a separate counter for seats seen so far
         long long res = 1;
-        int seatsSeen = 0, currP = 0, totalS = 0;
+        int seatsSeen = 0, currP = 0;
 
         for (char c : corridor) {
             if (seatsSeen > 0 && (seatsSeen % 2) == 0) {   // between completed pairs
@@ -15,15 +15,13 @@ public:
                     res = (res * (currP + 1)) % MOD;
                     currP = 0;
                     seatsSeen++;
-                    totalS++;
                 }
             } else if (c == 'S') {
                 seatsSeen++;
-                totalS++;
             }
         }
 
-        if (totalS == 0 || (totalS % 2) == 1) {
+        if (seatsSeen == 0 || (seatsSeen % 2) == 1) {
             return 0;
         }
 
