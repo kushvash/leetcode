@@ -1,30 +1,28 @@
 class Solution {
 public:
     int numberOfWays(string corridor) {
-        const long long MOD = 1000000007LL;
+        int n=corridor.size(), currP=0, MOD=1000000007, totalS=0;
+        long long res=1;
 
-        // Your original single-pass logic, but using a separate counter for seats seen so far
-        long long res = 1;
-        int seatsSeen = 0, currP = 0;
-
-        for (char c : corridor) {
-            if (seatsSeen > 0 && (seatsSeen % 2) == 0) {   // between completed pairs
-                if (c == 'P') {
+        for(int i=0; i<n; i++) {
+            if(totalS>0 && totalS%2==0) {
+                if(corridor[i]=='P') {
                     currP++;
-                } else { // 'S' -> start next pair
-                    res = (res * (currP + 1)) % MOD;
-                    currP = 0;
-                    seatsSeen++;
+                }else {
+                    res*=(currP+1);
+                    res%=MOD;
+                    currP=0;
+                    totalS++;
                 }
-            } else if (c == 'S') {
-                seatsSeen++;
+            }else if(corridor[i]=='S'){
+                totalS++;
             }
         }
 
-        if (seatsSeen == 0 || (seatsSeen % 2) == 1) {
+        if(totalS==0 || totalS%2==1) {
             return 0;
         }
 
-        return (int)res;
+        return res;
     }
 };
