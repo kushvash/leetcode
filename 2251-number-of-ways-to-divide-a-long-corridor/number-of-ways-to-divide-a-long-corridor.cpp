@@ -22,7 +22,7 @@ public:
             res%=MOD;
         }
 
-        if(currS==1 || totalS==0 || totalS%2==1) {
+        if(totalS==0 || totalS%2==1) {
             return 0;
         }
 
