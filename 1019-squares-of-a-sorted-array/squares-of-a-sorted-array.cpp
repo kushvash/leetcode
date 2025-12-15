@@ -6,7 +6,7 @@ public:
         n--;
 
         while(left<=right) {
-            if(nums[left]*nums[left]>nums[right]*nums[right]) {
+            if(abs(nums[left])>abs(nums[right])) {
                 res[n]=nums[left]*nums[left];
                 left++;
             }else {
