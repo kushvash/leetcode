@@ -1,24 +1,23 @@
 class Solution {
 public:
     bool checkSubarraySum(vector<int>& nums, int k) {
-        int prefixMod = 0;
-        unordered_map<int, int> modSeen;
-        modSeen[0] = -1;
+        int n=nums.size(), prefModSum=0;
+        unordered_map<int, int> mp;
+        mp[0]=-1;
 
-        for (int i = 0; i < nums.size(); i++) {
-            prefixMod = (prefixMod + nums[i]) % k;
+        for(int i=0; i<n; i++) {
+            prefModSum+=nums[i];
+            prefModSum%=k;
 
-            if (modSeen.find(prefixMod) != modSeen.end()) {
-                // ensures that the size of subarray is atleast 2
-                if (i - modSeen[prefixMod] > 1) {
-                    return 1;
+            if(mp.find(prefModSum)!=mp.end()) {
+                if(i-mp[prefModSum]>1) {
+                    return true;
                 }
-            } else {
-                // mark the value of prefixMod with the current index.
-                modSeen[prefixMod] = i;
+            }else {
+                mp[prefModSum]=i;
             }
         }
 
-        return 0;
+        return false;
     }
 };
