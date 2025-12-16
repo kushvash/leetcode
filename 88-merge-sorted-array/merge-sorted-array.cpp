@@ -4,24 +4,23 @@ public:
         m--;
         n--;
 
-        int pointer=nums1.size()-1;
+        int right=nums1.size()-1;
 
         while(m>=0 && n>=0) {
-            if(nums1[m]>=nums2[n]) {
-                nums1[pointer]=nums1[m];
+            if(nums1[m]>nums2[n]) {
+                nums1[right]=nums1[m];
                 m--;
             }else {
-                nums1[pointer]=nums2[n];
+                nums1[right]=nums2[n];
                 n--;
             }
-
-            pointer--;
+            right--;
         }
 
         while(n>=0) {
-            nums1[pointer]=nums2[n];
+            nums1[right]=nums2[n];
             n--;
-            pointer--;
+            right--;
         }
 
         return;
