@@ -1,31 +1,32 @@
 class Solution {
 public:
     string frequencySort(string s) {
-        unordered_map<char, int> freq;
+        unordered_map<char, int> mp;
 
-        for(char& c: s) {
-            freq[c]++;
+        for(char c: s) {
+            mp[c]++;
         }
 
-        vector<vector<char>> bucket(s.size()+1);
+        vector<pair<int, char>> records;
+
+        for(auto& [c, freq]: mp) {
+            records.push_back({freq, c});
+        }
+
+        auto cmp=[](const pair<int, char>& a, const pair<int, char>& b) {
+            return a.first>b.first;
+        };
+
+        sort(records.begin(), records.end(), cmp);
 
         string res;
 
-        for(auto& [c, f]: freq) {
-            bucket[f].push_back(c);
-        }
-
-        for(int i=s.size(); i>0; i--) {
-            if(bucket[i].empty()) {
-                continue;
-            }
-
-            while(!bucket[i].empty()) {
-                res.append(i, bucket[i].back());
-                bucket[i].pop_back();
+        for(auto& record: records) {
+            for(int i=0; i<record.first; i++) {
+                res+=record.second;
             }
         }
 
-        return res;   
+        return res;
     }
 };
