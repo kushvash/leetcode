@@ -11,19 +11,34 @@
  */
 class Solution {
 public:
-    bool twoSumBSTs(TreeNode* root1, TreeNode* root2, int target) {
-        if(!root1 || !root2) {
+    void traverseBST(TreeNode* node, unordered_set<int>& st) {
+        if(!node) {
+            return;
+        }
+
+        st.insert(node->val);
+
+        traverseBST(node->left, st);
+        traverseBST(node->right, st);
+    }
+
+    bool findBST(TreeNode* node, unordered_set<int>& st, int target) {
+        if(!node) {
             return false;
         }
-       
-       int val1=root1->val, val2=root2->val;
 
-        if(val1+val2==target) {
+        if(st.find(target-node->val)!=st.end()) {
             return true;
-        }else if(val1+val2>target) {
-            return (twoSumBSTs(root1->left, root2, target) || twoSumBSTs(root1, root2->left, target));
-        }else {
-            return (twoSumBSTs(root1->right, root2, target) || twoSumBSTs(root1, root2->right, target));
         }
+
+        return (findBST(node->left, st, target) || findBST(node->right, st, target));
+    }
+
+    bool twoSumBSTs(TreeNode* root1, TreeNode* root2, int target) {
+        unordered_set<int> st;
+
+        traverseBST(root1, st);
+
+        return findBST(root2, st, target);
     }
 };
