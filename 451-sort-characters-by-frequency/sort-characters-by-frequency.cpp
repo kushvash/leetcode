@@ -7,23 +7,23 @@ public:
             mp[c]++;
         }
 
-        vector<pair<int, char>> records;
-
-        for(auto& [c, freq]: mp) {
-            records.push_back({freq, c});
-        }
-
-        auto cmp=[](const pair<int, char>& a, const pair<int, char>& b) {
-            return a.first>b.first;
-        };
-
-        sort(records.begin(), records.end(), cmp);
+        vector<vector<char>> bucket(s.size()+1);
 
         string res;
 
-        for(auto& record: records) {
-            for(int i=0; i<record.first; i++) {
-                res+=record.second;
+        for(auto& [c, f]: mp) {
+            bucket[f].push_back(c);
+        }
+
+        for(int i=s.size(); i>0; i--) {
+            if(bucket[i].empty()) {
+                continue;
+            }
+
+            for(char c: bucket[i]) {
+                for(int j=0; j<i; j++) {
+                    res+=c;
+                }
             }
         }
 
