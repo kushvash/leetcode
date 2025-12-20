@@ -1,12 +1,16 @@
 class Solution {
 public:
-    bool validCode(string s) {
-        string res;
+    bool isAlphaNum(string s) {
+        if(s.empty()) {
+            return false;
+        }
 
-        for(char& c: s) {
-            if(!isalnum(c) && c!='_') {
-                return false;
+        for(char c: s) {
+            if((c>='a' && c<='z') || (c>='A' && c<='Z') || (c>='0' && c<='9') || (c=='_')) {
+                continue;
             }
+
+            return false;
         }
 
         return true;
@@ -14,30 +18,23 @@ public:
 
     vector<string> validateCoupons(vector<string>& code, vector<string>& businessLine, vector<bool>& isActive) {
         int n=code.size();
-        vector<string> res;
-
-        unordered_map<string, vector<string>> mp;
+        map<string, vector<string>> list;
+        unordered_set<string> businessList;
+        businessList={"electronics", "grocery", "pharmacy", "restaurant"};
 
         for(int i=0; i<n; i++) {
-            if(!isActive[i] || code[i]=="") {
-                continue;
-            }
-
-            string business=businessLine[i];
-            string couponCode=code[i];
-
-            if(validCode(couponCode)) {
-                mp[business].push_back(couponCode);
+            if(isActive[i] && isAlphaNum(code[i]) && businessList.find(businessLine[i])!=businessList.end()) {
+                list[businessLine[i]].push_back(code[i]);
             }
         }
 
-        vector<string> order = {"electronics", "grocery", "pharmacy", "restaurant"};
+        vector<string> res;
 
-        for(string& business: order) {
-            sort(mp[business].begin(), mp[business].end());
+        for(auto& [business, codes]: list) {
+            sort(codes.begin(), codes.end());
 
-            for(string& c: mp[business]) {
-                res.push_back(c);
+            for(string s: codes) {
+                res.push_back(s);
             }
         }
 
