@@ -2,12 +2,7 @@ class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
         int n=nums.size();
-        if(n<4) {
-            return {};
-        }
-
         vector<vector<int>> res;
-
         sort(nums.begin(), nums.end());
 
         for(int i=0; i<n; i++) {
@@ -18,27 +13,24 @@ public:
                 if(j>i+1 && nums[j]==nums[j-1]) {
                     continue;
                 }
-                int l=j+1, r=n-1;
 
-                while(l<r) {
-                    long long sum=(long long)nums[i] + nums[j] + nums[l] + nums[r];;
+                int left=j+1, right=n-1; 
+                long long newTarget=target-(long long)(nums[i]+nums[j]);
 
-                    if(sum==target) {
-                        res.push_back({nums[i], nums[j], nums[l], nums[r]});
-                        l++;
-                        r--;
+                while(left<right) {
+                    long long sum=nums[left]+nums[right];
 
-                        while(l<n && nums[l]==nums[l-1]){
-                            l++;
+                    if(sum==newTarget) {
+                        res.push_back({nums[i], nums[j], nums[left], nums[right]});
+                        while(left<right && nums[left]==nums[left+1]) {
+                            left++;
                         }
-
-                        while(r>0 && nums[r]==nums[r+1]) {
-                            r--;
-                        }
-                    }else if(sum>target) {
-                        r--;
+                        left++;
+                        right--;
+                    }else if(sum>newTarget) {
+                        right--;
                     }else {
-                        l++;
+                        left++;
                     }
                 }
             }
@@ -47,3 +39,5 @@ public:
         return res;
     }
 };
+
+// [-2, -1, 0, 0, 1, 2]
