@@ -1,27 +1,21 @@
 class Solution {
 public:
     bool isSubsequence(string s, string t) {
-        int j=0, n1=s.size(), n2=t.size();
+        int sPoint=0, tPoint=0, sSize=s.size(), tSize=t.size();
 
-        if(n2<n1) {
+        if(sSize>tSize) {
             return false;
         }
 
-        if(n1==0) {
-            return true;
-        }
-
-
-        for(int i=0; i<n2; i++) {
-            if(s[j]==t[i]) {
-                j++;
-            }
-
-            if(j==n1) {
-                return true;
+        while(sPoint<sSize && tPoint<tSize) {
+            if(s[sPoint]==t[tPoint]) {
+                sPoint++;
+                tPoint++;
+            }else {
+                tPoint++;
             }
         }
 
-        return false;
+        return sPoint==sSize;
     }
 };
