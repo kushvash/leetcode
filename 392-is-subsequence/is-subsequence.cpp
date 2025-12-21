@@ -14,7 +14,7 @@ public:
         for(int i=0; i<s.size(); i++) {
             char c=s[i];
 
-            vector<int> positions=pos[c-'a'];
+            vector<int>& positions=pos[c-'a'];
 
             auto it=upper_bound(positions.begin(), positions.end(), prev);
 
