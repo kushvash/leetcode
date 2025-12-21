@@ -3,21 +3,10 @@ public:
     void rotate(vector<int>& nums, int k) {
         int n=nums.size();
         k%=n;
-        vector<int> helper(n);
 
-        for(int i=0; i<n; i++) {
-            if(i+k<n) {
-                helper[i+k]=nums[i];
-            }else {
-                int tempIndex=i+k-n;
-
-                helper[tempIndex]=nums[i];
-            }
-        }
-
-        for(int i=0; i<n; i++) {
-            nums[i]=helper[i];
-        }
+        reverse(nums.begin(), nums.begin()+(n-k));
+        reverse(nums.begin()+(n-k), nums.end());
+        reverse(nums.begin(), nums.end());
 
         return;
     }
