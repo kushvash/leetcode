@@ -1,25 +1,26 @@
 class Solution {
 public:
     int numberOfWays(string corridor) {
-        int n=corridor.size(), currP=0, MOD=1000000007, totalS=0;
+        long long MOD=1000000007;
+
+        int n=corridor.size(), totalSofas=0, currPlants=0;
         long long res=1;
 
         for(int i=0; i<n; i++) {
-            if(totalS>0 && totalS%2==0) {
+            if(totalSofas>0 && totalSofas%2==0) {
                 if(corridor[i]=='P') {
-                    currP++;
+                    currPlants++;
                 }else {
-                    res*=(currP+1);
-                    res%=MOD;
-                    currP=0;
-                    totalS++;
+                    res=((res*(currPlants+1))%MOD);
+                    currPlants=0;
+                    totalSofas++;
                 }
-            }else if(corridor[i]=='S'){
-                totalS++;
+            }else if(corridor[i]=='S') {
+                totalSofas++;
             }
         }
 
-        if(totalS==0 || totalS%2==1) {
+        if(totalSofas==0 || totalSofas%2!=0) {
             return 0;
         }
 
