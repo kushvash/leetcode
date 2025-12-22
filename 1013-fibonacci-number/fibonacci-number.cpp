@@ -1,19 +1,19 @@
 class Solution {
 public:
     int fib(int n) {
-        if(n==0 || n==1){
+        if(n==0 || n==1) {
             return n;
         }
 
-        int prev=1, prev2=0, fibN;
+        int prev=1, prevPrev=0, curr;
 
-        for(int i=2; i<=n; i++){
-            fibN=prev+prev2;
+        for(int i=2; i<=n; i++) {
+            curr=prev+prevPrev;
 
-            prev2=prev;
-            prev=fibN;
+            prevPrev=prev;
+            prev=curr;
         }
 
-        return fibN;
+        return curr;
     }
 };
