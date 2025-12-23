@@ -1,62 +1,68 @@
 class Solution {
 public:
     bool checkInclusion(string s1, string s2) {
-        int n1=s1.size(), n2=s2.size(), totalMatched=0, l=0, r=0;
+        int n1=s1.size(), n2=s2.size();
 
         if(n1>n2) {
             return false;
         }
 
-        vector<int> countS1(26, 0);
-        vector<int> countS2(26, 0);
-
-        for(char c: s1) {
-            countS1[c-'a']++;
-        }
-
-        for (int i = 0; i < 26; i++) {
-            if (countS1[i] == countS2[i]) {
-                totalMatched++;
-            }
-        }
+        vector<int> record1(26, 0);
+        vector<int> record2(26, 0);
 
         for(int i=0; i<n1; i++) {
-            char c=s2[i];
-            countS2[c-'a']++;
-            if(countS2[c-'a']-countS1[c-'a']==0) {
-                totalMatched++;
-            }else if(countS2[c-'a']-countS1[c-'a']==1) {
-                totalMatched--;
-            }
-            r++;
+            char c=s1[i];
+            record1[c-'a']++;
         }
 
-        if(totalMatched==26) {
+        int left=0, right=0, res=0;
+
+        while(right<n1) {
+            char cR=s2[right];
+            record2[cR-'a']++;
+            right++;
+        }
+
+        for(int i=0; i<26; i++) {
+            if(record1[i]==record2[i]) {
+                res++;
+            }
+        }
+
+        if(res==26) {
             return true;
         }
 
-        while(r<n2) {
-            char del=s2[l], ins=s2[r];
+        while(right<n2) {
+            int add = s2[right] - 'a';
+            int rem = s2[left] - 'a';
+            left++;
 
-            countS2[ins-'a']++;
-            if(countS2[ins-'a']-countS1[ins-'a']==0) {
-                totalMatched++;
-            }else if(countS2[ins-'a']-countS1[ins-'a']==1) {
-                totalMatched--;
+            if(record2[add] == record1[add]) {
+                res--;
             }
-            r++;
             
-            countS2[del-'a']--;
-            if(countS2[del-'a']-countS1[del-'a']==0) {
-                totalMatched++;
-            }else if(countS2[del-'a']-countS1[del-'a']==-1) {
-                totalMatched--;
+            record2[add]++;
+            
+            if(record2[add] == record1[add]) {
+                res++;
             }
-            l++;
 
-            if(totalMatched==26) {
+            if(record2[rem] == record1[rem]) {
+                res--;
+            }
+
+            record2[rem]--;
+
+            if(record2[rem] == record1[rem]) {
+                res++;
+            }
+
+            if (res == 26) {
                 return true;
             }
+
+            right++;
         }
 
         return false;
