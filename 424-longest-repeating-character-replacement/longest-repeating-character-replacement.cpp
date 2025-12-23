@@ -1,30 +1,31 @@
 class Solution {
 public:
-    int maxCountIn(unordered_map<char, int>& record) {
+    int countInRecord(unordered_map<char, int>& record) {
         int maxC=0;
 
-        for(auto& [c, i]:record) {
-            maxC=max(maxC, i);
+        for(auto& [cha, count]: record) {
+            maxC=max(maxC, count);
         }
 
         return maxC;
     }
 
     int characterReplacement(string s, int k) {
-        int left=0, right=0, maxCount=0, n=s.size();
-        unordered_map<char, int> record;
+        int left=0, res=0, n=s.size();
 
-        while(right<n) {
+        unordered_map<char, int> record;
+    
+        for(int right=0; right<n; right++) {
             record[s[right]]++;
-            while(((right-left+1)-maxCountIn(record))>k) {
+
+            while(right-left+1 - countInRecord(record)>k) {
                 record[s[left]]--;
                 left++;
             }
 
-            maxCount=max(maxCount, right-left+1);
-            right++;
+            res=max(res, right-left+1);
         }
 
-        return maxCount;
+        return res;
     }
 };
