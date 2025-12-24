@@ -1,18 +1,17 @@
 class Solution {
 public:
     string frequencySort(string s) {
-        unordered_map<char, int> mp;
+        unordered_map<char, int> freqMap;
+        string res;
 
         for(char c: s) {
-            mp[c]++;
+            freqMap[c]++;
         }
 
         vector<vector<char>> bucket(s.size()+1);
 
-        string res;
-
-        for(auto& [c, f]: mp) {
-            bucket[f].push_back(c);
+        for(auto& [c, i]: freqMap) {
+            bucket[i].push_back(c);
         }
 
         for(int i=s.size(); i>0; i--) {
