@@ -1,21 +1,25 @@
 class Solution {
 public:
-    int numSubarraysWithSum(vector<int>& nums, int goal) {
-        int n=nums.size(), currSum=0, res=0;
-
-        unordered_map<int, int> sumFreq;
-        sumFreq[0]=1;
-
-        for(int i=0; i<n; i++) {
-            currSum+=nums[i];
-
-            if(sumFreq.find(currSum-goal)!=sumFreq.end()) {
-                res+=sumFreq[currSum-goal];
-            }
-
-            sumFreq[currSum]++;
+    long long atMost(const vector<int>& nums, int goal) {
+        if (goal < 0) {
+            return 0;
         }
 
-        return res;
+        long long ans = 0;
+        int sum = 0, l = 0;
+
+        for (int r = 0; r < (int)nums.size(); ++r) {
+            sum += nums[r];
+            while (sum > goal) {
+                sum -= nums[l];
+                l++;
+            }
+            ans += (r - l + 1);
+        }
+        return ans;
+    }
+
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        return (int)(atMost(nums, goal)-atMost(nums, goal-1));
     }
 };
