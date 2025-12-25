@@ -5,18 +5,17 @@ public:
 
         for(auto& booking: bookings) {
             int seats=booking[2];
-            
-            res[booking[0]-1]+=seats;
+            int first=booking[0];
+            int last=booking[1];
 
-            if(booking[1]<n) {
-                res[booking[1]]-=seats;
+            res[first-1]+=seats;
+            if(last<n) {
+                res[last]-=seats;
             }
         }
 
-        // prefix sum array
-
-        for(int i=0; i<n-1; i++) {
-            res[i+1]+=res[i];
+        for(int i=1; i<n; i++) {
+            res[i]+=res[i-1];
         }
 
         return res;
