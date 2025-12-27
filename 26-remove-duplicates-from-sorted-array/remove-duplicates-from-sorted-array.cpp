@@ -1,7 +1,7 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        int left=1, n=nums.size();
+        int n=nums.size(), left=1;
 
         for(int right=1; right<n; right++) {
             if(nums[right]!=nums[right-1]) {
