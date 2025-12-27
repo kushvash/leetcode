@@ -1,25 +1,25 @@
 class Solution {
 public:
     bool isValid(string s) {
-        stack<char> st;
-        unordered_map<char, char> record;
+        stack<char> order;
 
-        record[']']='[';
-        record['}']='{';
-        record[')']='(';
-        
-        for(char& c: s) {
-            if(record.find(c)==record.end()) {
-                st.push(c);
-            }else {
-                if(st.empty() || st.top()!=record[c]) {
+        unordered_map<char, char> pairs={
+            {')', '('},
+            {']', '['},
+            {'}', '{'}
+        };
+
+        for(char c: s) {
+            if(pairs.find(c)!=pairs.end()) {
+                if(order.empty() || pairs[c]!=order.top()) {
                     return false;
-                }else{
-                    st.pop();
                 }
+                order.pop();
+            }else {
+                order.push(c);
             }
         }
 
-        return st.empty();
+        return order.empty();
     }
 };
