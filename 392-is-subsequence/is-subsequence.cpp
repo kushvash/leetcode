@@ -1,30 +1,27 @@
 class Solution {
 public:
     bool isSubsequence(string s, string t) {
-        vector<vector<int>> pos(26);
-
-        int prev=-1;
-
-        for(int i=0; i<t.size(); i++) {
-            char c=t[i];
-
-            pos[c-'a'].push_back(i);
+        int sN=s.size(), tN=t.size(), matches=0, sPoint=0;
+        if(s==t) {
+            return true;
         }
 
-        for(int i=0; i<s.size(); i++) {
-            char c=s[i];
+        if(t.empty()) {
+            return false;
+        }
 
-            vector<int>& positions=pos[c-'a'];
-
-            auto it=upper_bound(positions.begin(), positions.end(), prev);
-
-            if(it==positions.end()) {
-                return false;
+        for(char c: t) {
+            if(s[sPoint]==c) {
+                sPoint++;
             }
 
-            prev=*it;
+            if(sPoint==sN) {
+                return true;
+            }
         }
 
-        return true;
+        return false;
+
+
     }
 };
