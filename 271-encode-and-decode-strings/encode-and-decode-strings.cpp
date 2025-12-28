@@ -24,7 +24,7 @@ public:
                 right++;
             }
 
-            int size=stoi(s.substr(left, right));
+            int size=stoi(s.substr(left, right-left));
 
             left=right+1;
 
