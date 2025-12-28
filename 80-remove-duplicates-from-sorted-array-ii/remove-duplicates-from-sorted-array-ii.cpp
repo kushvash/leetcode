@@ -7,11 +7,13 @@ public:
             int count=1;
 
             while(right+1<n && nums[right]==nums[right+1]) {
-                right++;
                 count++;
+                right++;
             }
 
-            for(int i=0; i<min(count, 2); i++) {
+            count=min(count, 2);
+
+            while(count--) {
                 nums[left]=nums[right];
                 left++;
             }
@@ -22,5 +24,3 @@ public:
         return left;
     }
 };
-
-// [1,1,1,1,2,2,2,3]
