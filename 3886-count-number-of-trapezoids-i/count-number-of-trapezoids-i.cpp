@@ -1,11 +1,12 @@
 class Solution {
 public:
     int countTrapezoids(vector<vector<int>>& points) {
+        long long MOD=1000000007, totalPairs=0, res=0;
+
         unordered_map<int, long long> yCount;
-        long long MOD=1000000007, res=0, totalPairs=0;
-        
-        for(auto& p: points) {
-            yCount[p[1]]++;
+
+        for(vector<int>& point: points) {
+            yCount[point[1]]++;
         }
 
         for(auto& [y, count]: yCount) {
