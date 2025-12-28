@@ -1,14 +1,13 @@
 class Codec {
 public:
+
     // Encodes a list of strings to a single string.
     string encode(vector<string>& strs) {
         string res;
-        for(string& str: strs) {
-            int sz=str.size();
+        for(string str: strs) {
+            int n=str.size();
 
-            res+=to_string(sz);
-            res+='#';
-            res+=str;
+            res+=to_string(n) + '#' + str;
         }
 
         return res;
@@ -17,21 +16,23 @@ public:
     // Decodes a single string to a list of strings.
     vector<string> decode(string s) {
         vector<string> res;
-        int i=0;
+        int left=0, n=s.size();
 
-        while(i<s.size()) {
-            int j=i;
-            while(s[j]!='#') {
-                j++;
+        while(left<n) {
+            int right=left;
+            while(s[right]!='#') {
+                right++;
             }
 
-            int sz=stoi(s.substr(i, j-i+1));
+            int size=stoi(s.substr(left, right));
 
-            i=j+1;
+            left=right+1;
 
-            res.push_back(s.substr(i, sz));
+            string toAdd=s.substr(left, size);
 
-            i+=sz;
+            res.push_back(toAdd);
+
+            left+=size;
         }
 
         return res;
