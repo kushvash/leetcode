@@ -1,7 +1,9 @@
 class Solution {
 public:
     int numberOfWays(string corridor) {
-        long long MOD=1000000007, res=1, n=corridor.size(), sCount=0, pCount=0;
+
+        long long MOD=1000000007, res=1;
+        int n=corridor.size(), sCount=0, pCount=0;
 
         for(int i=0; i<n; i++) {
             if(sCount>0 && sCount%2==0) {
