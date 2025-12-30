@@ -1,38 +1,41 @@
 class Solution {
 public:
     vector<string> topKFrequent(vector<string>& words, int k) {
-        unordered_map<string, int> mp;
+        int n=words.size();
 
-        for(string& word: words) {
-            mp[word]++;
-        }
+        vector<vector<string>> freqList(n);
 
-        auto cmp=[](pair<int, string>& a, pair<int, string>& b) {
-            if(a.first==b.first) {
-                return a.second<b.second;
-            }
-
-            return a.first>b.first;
-        };
-
-        priority_queue<pair<int, string>, vector<pair<int, string>>, decltype(cmp)> minHeap(cmp);
-
-        for(auto& [word, freq]: mp) {
-            minHeap.push({freq, word});
-
-            if(minHeap.size()>k) {
-                minHeap.pop();
-            }
-        }
+        unordered_map<string, int> freqMap;
 
         vector<string> res;
 
-        while(!minHeap.empty()) {
-            res.push_back(minHeap.top().second);
-            minHeap.pop();
+        for(string& word: words) {
+            freqMap[word]++;
         }
 
-        reverse(res.begin(), res.end());
+        for(auto& [word, freq]: freqMap) {
+            freqList[freq].push_back(word);
+        }
+
+        for(int i=n-1; i>=0; i--) {
+            if(freqList[i].empty()) {
+                continue;
+            }
+
+            sort(freqList[i].begin(), freqList[i].end());
+
+            for(string& word: freqList[i]) {
+                res.push_back(word);
+
+                if(res.size()==k) {
+                    break;
+                }
+            }
+
+            if(res.size()==k) {
+                break;
+            }
+        }
 
         return res;
     }
