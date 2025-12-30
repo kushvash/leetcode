@@ -1,38 +1,45 @@
 class Solution {
 public:
+    int nextValidIndex(int i, string str) {
+        int skip=0;
+
+        while(i>=0) {
+            if(str[i]=='#') {
+                skip++;
+                i--;
+            }else if(skip>0) {
+                skip--;
+                i--;
+            }else {
+                break;
+            }   
+        }
+
+        return i;
+    }
     bool backspaceCompare(string s, string t) {
-        stack<char> sSt;
-        stack<char> tSt;
+        int sP=s.size()-1, tP=t.size()-1;
 
-        for(char c: s) {
-            if(c=='#') {
-                if(!sSt.empty()) {
-                    sSt.pop();
-                }
-            }else {
-                sSt.push(c);
+        while(sP>=0 || tP>=0) {
+            sP=nextValidIndex(sP, s);
+            tP=nextValidIndex(tP, t);
+
+            if(sP<0 && tP<0) {
+                return true;
             }
-        }
 
-        for(char c: t) {
-            if(c=='#') {
-                if(!tSt.empty()) {
-                    tSt.pop();
-                }
-            }else {
-                tSt.push(c);
-            }
-        }
-
-        while(!sSt.empty() && !tSt.empty()) {
-            if(sSt.top()!=tSt.top()) {
+            if((sP<0 || tP<0)) {
                 return false;
             }
 
-            sSt.pop();
-            tSt.pop();
+            if(s[sP]!=t[tP]) {
+                return false;
+            }
+
+            sP--;
+            tP--;
         }
 
-        return sSt.empty() && tSt.empty();
+        return true;
     }
 };
