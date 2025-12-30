@@ -4,15 +4,15 @@ public:
         string res;
 
         auto cmp=[](int& a, int& b) {
-            string i1=to_string(a);
-            string i2=to_string(b);
+            string aS=to_string(a);
+            string bS=to_string(b);
 
-            return i1+i2>i2+i1;
+            return aS+bS>bS+aS;
         };
 
         sort(nums.begin(), nums.end(), cmp);
 
-        for(int& num: nums) {
+        for(int num: nums) {
             res+=to_string(num);
         }
 
