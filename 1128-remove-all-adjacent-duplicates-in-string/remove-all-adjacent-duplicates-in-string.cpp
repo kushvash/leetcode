@@ -1,22 +1,20 @@
 class Solution {
 public:
     string removeDuplicates(string s) {
-        string res;
+        int write=0, n=s.size();
 
-        for(char c: s) {
-            if(res.empty()) {
-                res+=c;
+        for(int read=0; read<n; read++) {
+            s[write]=s[read];
+
+            if(write>0 && s[write]==s[write-1]) {
+                write--;
             }else {
-                int n=res.size()-1;
-
-                if(c==res[n]) {
-                    res.pop_back();
-                }else {
-                    res+=c;
-                }
+                write++;
             }
         }
 
-        return res;
+        s.resize(write);
+
+        return s;
     }
 };
