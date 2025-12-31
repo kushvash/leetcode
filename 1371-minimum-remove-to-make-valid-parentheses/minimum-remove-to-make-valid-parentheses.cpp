@@ -1,8 +1,9 @@
 class Solution {
 public:
     string minRemoveToMakeValid(string s) {
-        int cnt=0;
         stack<char> st;
+
+        int cnt=0;
 
         for(char c: s) {
             if(c=='(') {
@@ -14,7 +15,7 @@ public:
             }else if(c!=')') {
                 st.push(c);
             }
-        }   
+        }
 
         string res;
 
