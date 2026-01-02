@@ -1,22 +1,21 @@
 class Solution {
 public:
     int findMaxLength(vector<int>& nums) {
-        int n=nums.size(), currSum=0, res=0;
-
-        unordered_map<int, int> lastOccur;
-        lastOccur[0]=-1;
+        unordered_map<int, int> mp;
+        int n=nums.size(), sum=0, res=0;
+        mp[0]=-1;
 
         for(int i=0; i<n; i++) {
-            if(nums[i]==0) {
-                currSum--;
+            if(nums[i]==1) {
+                sum++;
             }else {
-                currSum++;
+                sum--;
             }
 
-            if(lastOccur.find(currSum)!=lastOccur.end()) {
-                res=max(res, i-lastOccur[currSum]);
+            if(mp.find(sum)!=mp.end()) {
+                res=max(res, i-mp[sum]);
             }else {
-                lastOccur[currSum]=i;
+                mp[sum]=i;
             }
         }
 
