@@ -3,10 +3,8 @@ public:
     vector<int> getModifiedArray(int length, vector<vector<int>>& updates) {
         vector<int> res(length, 0);
 
-        for(auto& update: updates) {
-            int inc=update[2];
-            int start=update[0];
-            int end=update[1];
+        for(vector<int>& update: updates) {
+            int start=update[0], end=update[1], inc=update[2];
 
             res[start]+=inc;
 
