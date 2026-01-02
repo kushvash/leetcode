@@ -1,23 +1,21 @@
 class Solution {
 public:
     vector<int> corpFlightBookings(vector<vector<int>>& bookings, int n) {
-        vector<int> res(n, 0);
+        vector<int> diffArr(n, 0);
 
-        for(auto& booking: bookings) {
-            int seats=booking[2];
-            int first=booking[0];
-            int last=booking[1];
+        for(vector<int>& booking: bookings) {
+            int fi=booking[0], la=booking[1], seats=booking[2];
 
-            res[first-1]+=seats;
-            if(last<n) {
-                res[last]-=seats;
+            diffArr[fi-1]+=seats;
+            if(la<n) {
+                diffArr[la]-=seats;
             }
         }
 
         for(int i=1; i<n; i++) {
-            res[i]+=res[i-1];
+            diffArr[i]+=diffArr[i-1];
         }
 
-        return res;
+        return diffArr;
     }
 };
