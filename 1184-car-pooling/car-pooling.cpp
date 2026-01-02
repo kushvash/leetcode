@@ -14,9 +14,7 @@ public:
                 return false;
             }
 
-            if(to+1<1001) {
-                diffArray[to]-=pas;
-            }
+            diffArray[to]-=pas;
         }
 
         for(int i=1; i<1001; i++) {
@@ -28,6 +26,5 @@ public:
         }
 
         return true;
-
     }
 };
