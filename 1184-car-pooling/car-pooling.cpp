@@ -1,28 +1,33 @@
 class Solution {
 public:
     bool carPooling(vector<vector<int>>& trips, int capacity) {
-        vector<int> numPass(1001, 0);
+        vector<int> diffArray(1001, 0);
 
-        for(auto& trip: trips) {
+        for(vector<int>& trip: trips) {
             int pas=trip[0];
             int from=trip[1];
             int to=trip[2];
 
-            numPass[from]+=pas;
-            numPass[to]-=pas;
-        }
+            diffArray[from]+=pas;
 
-        if(numPass[0]>capacity) {
-            return false;
+            if(diffArray[from]>capacity) {
+                return false;
+            }
+
+            if(to+1<1001) {
+                diffArray[to]-=pas;
+            }
         }
 
         for(int i=1; i<1001; i++) {
-            numPass[i]+=numPass[i-1];
-            if(numPass[i]>capacity) {
+            diffArray[i]+=diffArray[i-1];
+
+            if(diffArray[i]>capacity) {
                 return false;
             }
         }
 
         return true;
+
     }
 };
