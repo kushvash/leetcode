@@ -11,49 +11,25 @@
  */
 class Solution {
 public:
-    bool isSymmetricHelper(vector<TreeNode*> level){
-        int left=0, right=level.size()-1;
-
-        while(left<right){
-            if((!level[left] && level[right]) || (level[left] && !level[right])){
-                return false;
-            } 
-
-            if((level[left] && level[right]) && level[left]->val != level[right]->val){
-                return false;
-            }
-
-            left++;
-            right--;
-        } 
-
-        return true;
-    }
-
     bool isSymmetric(TreeNode* root) {
-        queue<TreeNode*> q;
-        q.push(root);
+        queue<pair<TreeNode*, TreeNode*>> q;
 
-        while(!q.empty()){
-            int n=q.size();
-            vector<TreeNode*> currLevel;
+        q.push({root->left, root->right});
 
-            for(int i=0; i<n; i++){
-                TreeNode* temp = q.front();
-                q.pop();
-                currLevel.push_back(temp);
+        while(!q.empty()) {
+            auto [leftN, rightN]=q.front();
+            q.pop();
 
-                if(!temp){
-                    continue;
-                }
-
-                q.push(temp->left);
-                q.push(temp->right);
+            if(!leftN && !rightN) {
+                continue;
             }
 
-            if(!isSymmetricHelper(currLevel)){
+            if(!leftN || !rightN || leftN->val!=rightN->val) {
                 return false;
             }
+
+            q.push({leftN->left, rightN->right});
+            q.push({leftN->right, rightN->left});
         }
 
         return true;
