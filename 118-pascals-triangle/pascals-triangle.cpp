@@ -6,17 +6,13 @@ public:
         res.push_back({1});
 
         for(int i=1; i<numRows; i++) {
-            int prev=0;
+            vector<int> curr={1};
 
-            vector<int> curr;
-
-            for(int j=0; j<i; j++) {
-                curr.push_back(res[i-1][j]+prev);
-                prev=res[i-1][j];                    
+            for(int j=1; j<i; j++) {
+                curr.push_back(res[i-1][j-1]+res[i-1][j]);
             }
 
             curr.push_back(1);
-
             res.push_back(curr);
         }
 
