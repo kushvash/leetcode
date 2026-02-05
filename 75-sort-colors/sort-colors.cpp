@@ -6,18 +6,16 @@ public:
         while(mid<=right) {
             if(nums[mid]==0) {
                 swap(nums[left], nums[mid]);
-                mid++;
                 left++;
+                mid++;
             }else if(nums[mid]==2) {
-                swap(nums[mid], nums[right]);
+                swap(nums[right], nums[mid]);
                 right--;
             }else {
                 mid++;
             }
-        } 
+        }
 
         return;
     }
 };
-
-// [0, 0, 2, 1, 1, 2]
