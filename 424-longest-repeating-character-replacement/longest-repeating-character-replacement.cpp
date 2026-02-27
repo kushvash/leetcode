@@ -1,30 +1,21 @@
 class Solution {
 public:
-    int mostFreq(unordered_map<char, int>& freqMap) {
-        int res=0;
-
-        for(auto& [c, i]: freqMap) {
-            res=max(res, i);
-        }
-
-        return res;
-    }
-
     int characterReplacement(string s, int k) {
-        int n=s.size(), left=0, right=0, res=0;
+        int currMax=0, n=s.size(), left=0, res=0;
 
-        unordered_map<char, int> freqMap;
+        vector<int> record(26, 0);
 
-        while(right<n) {
-            freqMap[s[right]]++;
+        for(int right=0; right<n; right++) {
+            record[s[right]-'A']++;
+            
+            currMax=max(currMax, record[s[right]-'A']);
 
-            while((right-left+1)-mostFreq(freqMap)>k) {
-                freqMap[s[left]]--;
+            while(right-left+1-currMax>k) {
+                record[s[left]-'A']--;
                 left++;
             }
 
             res=max(res, right-left+1);
-            right++;
         }
 
         return res;
