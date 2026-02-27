@@ -11,23 +11,22 @@
  */
 class Solution {
 public:
-    TreeNode* toBST(int start, int end, vector<int>& nums) {
-        if(start>end){
+    TreeNode* _helper(vector<int>& nums, int left, int right) {
+        if(left>right) {
             return nullptr;
         }
-        int mid=start+(end-start)/2;
 
-        TreeNode *root = new TreeNode(nums[mid]);
+        int mid=(left+right)/2;
 
-        root->left=toBST(start, mid-1, nums);
-        root->right=toBST(mid+1, end, nums);
+        TreeNode* curr=new TreeNode(nums[mid]);
 
-        return root;
-        
+        curr->left=_helper(nums, left, mid-1);
+        curr->right=_helper(nums, mid+1, right);
+
+        return curr;
     }
-    TreeNode* sortedArrayToBST(vector<int>& nums) {
-        int end=nums.size()-1;
 
-        return toBST(0, end, nums);
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        return _helper(nums, 0, nums.size()-1);
     }
 };
