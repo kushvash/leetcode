@@ -1,45 +1,42 @@
 class Solution {
 public:
-    bool checkPartition(vector<int>& nums, int k, int n) {
-        int curr=0, partitions=0;
+    bool divPossible(int cap, vector<int>& nums, int k) {
+        int currSum=0, currDiv=1;
 
-        for(int num:nums) {
-            if(curr+num>n){
-                partitions++;
-                curr=0;
+        for(int num: nums) {
+            if(currSum+num>cap) {
+                currDiv++;
+                currSum=num;
+            }else {
+                currSum+=num;
             }
 
-            curr+=num;
+            if(currDiv>k) {
+                return false;
+            }
         }
 
-        if(curr!=0){
-            partitions++;
-        }
-
-        return (partitions<=k);
+        return true;
     }
 
     int splitArray(vector<int>& nums, int k) {
-        int lo=0, hi=0, mid;
+        int lo=0, hi=0;
 
         for(int num: nums) {
-            hi+=num;
             lo=max(lo, num);
-        }        
+            hi+=num;
+        }
 
         while(lo<hi) {
-            mid=lo+(hi-lo)/2;
+            int mid=lo+(hi-lo)/2;
 
-            if(checkPartition(nums, k, mid)){
+            if(divPossible(mid, nums, k)) {
                 hi=mid;
-            }else{
+            }else {
                 lo=mid+1;
             }
         }
 
-
         return lo;
-
-
     }
 };
