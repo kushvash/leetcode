@@ -1,20 +1,21 @@
 class Solution {
 public:
     int tribonacci(int n) {
-        if(n<=1) {
+        if(n<2) {
             return n;
         }
         if(n==2) {
             return 1;
         }
-        int p=0, pp=1, ppp=1, curr;
+
+        int t0=0, t1=1, t2=1, curr; 
 
         for(int i=3; i<=n; i++) {
-            curr=p+pp+ppp;
+            curr=t0+t1+t2;
 
-            p=pp;
-            pp=ppp;
-            ppp=curr;
+            t0=t1;
+            t1=t2;
+            t2=curr;
         }
 
         return curr;
