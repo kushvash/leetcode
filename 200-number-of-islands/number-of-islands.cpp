@@ -1,31 +1,43 @@
 class Solution {
 public:
-    vector<vector<int>> dirs={
-            {1, 0}, {-1, 0}, {0, 1}, {0, -1}
-        };
-    void removeIsland(vector<vector<char>>& grid, int i, int j) {
-        for(int k=0; k<4; k++) {
-            int tempX=i+dirs[k][0];
-            int tempY=j+dirs[k][1];
-            if(tempX>=0 && tempX<grid.size() && tempY>=0 && tempY<grid[0].size() && grid[tempX][tempY]=='1') {
-                grid[tempX][tempY]='0';
-                removeIsland(grid, tempX, tempY);
+    vector<pair<int, int>> dirs={
+        {-1, 0}, {1, 0}, {0, -1}, {0, 1}
+    };
+
+    void bfs(vector<vector<char>>& grid, int row, int col) {
+        queue<pair<int, int>> q;
+        grid[row][col]='0';
+        q.push({row, col});
+
+        while(!q.empty()) {
+            pair<int, int> fr=q.front();
+
+            q.pop();
+
+            for(auto& [x, y]: dirs) {
+                int newX=fr.first+x;
+                int newY=fr.second+y;
+
+                if(newX>=0 && newX<grid.size() && newY>=0 && newY<grid[0].size() && grid[newX][newY]=='1') {
+                    grid[newX][newY]='0';
+                    q.push({newX, newY});
+                }
             }
         }
     }
+
     int numIslands(vector<vector<char>>& grid) {
-        int m=grid.size(), n=grid[0].size(), count=0;
-        
+        int m=grid.size(), n=grid[0].size(), res=0;
+
         for(int i=0; i<m; i++) {
             for(int j=0; j<n; j++) {
                 if(grid[i][j]=='1') {
-                    grid[i][j]='0';
-                    removeIsland(grid, i, j);
-                    count++;
+                    bfs(grid, i, j);
+                    res++;
                 }
             }
         }
 
-        return count;
+        return res;
     }
 };
