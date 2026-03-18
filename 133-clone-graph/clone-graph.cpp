@@ -12,7 +12,7 @@ public:
         val = _val;
         neighbors = vector<Node*>();
     }
-    Node(int _val, vector<Node*> _neighbors) { 
+    Node(int _val, vector<Node*> _neighbors) {
         val = _val;
         neighbors = _neighbors;
     }
@@ -21,32 +21,30 @@ public:
 
 class Solution {
 public:
-    Node* cloneGraphHelper(Node* root, unordered_map<Node*, Node*>& record){
-        if(!root){
-            return nullptr;    
-        }
-
-        if(record.find(root)!=record.end()){
-            return record[root];
-        }
-
-        Node* copy = new Node(root->val);
-        record[root] = copy;
-
-        for (Node* nei : root->neighbors) {
-            copy->neighbors.push_back(cloneGraphHelper(nei, record));
-        }
-
-        return copy;
-    }
-
     Node* cloneGraph(Node* node) {
-        if(!node){
+        if (!node) {
             return nullptr;
-        }   
+        }
 
-        unordered_map<Node*, Node*> record;
-        
-        return cloneGraphHelper(node, record);
+        unordered_map<Node*, Node*> mp;
+        queue<Node*> q;
+
+        mp[node] = new Node(node->val);
+        q.push(node);
+
+        while (!q.empty()) {
+            Node* cur = q.front();
+            q.pop();
+
+            for (Node* nei : cur->neighbors) {
+                if (!mp.count(nei)) {
+                    mp[nei] = new Node(nei->val);
+                    q.push(nei);
+                }
+                mp[cur]->neighbors.push_back(mp[nei]);
+            }
+        }
+
+        return mp[node];
     }
 };
