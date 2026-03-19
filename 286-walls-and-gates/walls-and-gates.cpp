@@ -1,13 +1,9 @@
 class Solution {
 public:
-    void bfs(vector<vector<int>>& rooms, int i, int j) {
+    void bfs(vector<vector<int>>& rooms, queue<vector<int>>& q) {
         vector<vector<int>> dirs={
             {-1, 0}, {1, 0}, {0, -1}, {0, 1}
         };
-
-        queue<vector<int>> q;
-
-        q.push({i, j, 0});
 
         while(!q.empty()) {
             int x=q.front()[0], y=q.front()[1], dist=q.front()[2];
@@ -28,13 +24,16 @@ public:
 
     void wallsAndGates(vector<vector<int>>& rooms) {
         int m=rooms.size(), n=rooms[0].size();
+        queue<vector<int>> q;
 
         for(int i=0; i<m; i++) {
             for(int j=0; j<n; j++) {
                 if(rooms[i][j]==0) {
-                    bfs(rooms, i, j);
+                    q.push({i, j, 0});
                 }
             }
+
+            bfs(rooms, q);
         }
 
         return;
