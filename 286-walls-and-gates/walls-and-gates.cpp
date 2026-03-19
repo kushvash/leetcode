@@ -32,9 +32,9 @@ public:
                     q.push({i, j, 0});
                 }
             }
-
-            bfs(rooms, q);
         }
+
+        bfs(rooms, q);
 
         return;
     }
