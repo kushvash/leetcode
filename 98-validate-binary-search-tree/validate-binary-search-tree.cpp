@@ -11,23 +11,24 @@
  */
 class Solution {
 public:
-    bool _helper(TreeNode* node, long max, long min) {
+    bool _isValidBSTHelper(TreeNode* node, long currMin, long currMax) {
         if(!node) {
             return true;
         }
 
-        int curr=node->val;
-
-        if(curr>=max || curr<=min) {
+        if(node->val>=currMax || node->val<=currMin) {
             return false;
         }
 
-        return _helper(node->left, curr, min) && _helper(node->right, max, curr);
+        bool leftB=_isValidBSTHelper(node->left, currMin, node->val);
+        bool rightB=_isValidBSTHelper(node->right, node->val, currMax);
+
+        return leftB && rightB;
     }
 
     bool isValidBST(TreeNode* root) {
         int curr=root->val;
-        
-        return _helper(root->left, curr, LONG_MIN) && _helper(root->right, LONG_MAX, curr);
+
+        return _isValidBSTHelper(root->left, LONG_MIN, curr) && _isValidBSTHelper(root->right, curr, LONG_MAX);
     }
 };
