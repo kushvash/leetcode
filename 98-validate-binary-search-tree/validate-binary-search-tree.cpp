@@ -27,8 +27,6 @@ public:
     }
 
     bool isValidBST(TreeNode* root) {
-        int curr=root->val;
-
-        return _isValidBSTHelper(root->left, LONG_MIN, curr) && _isValidBSTHelper(root->right, curr, LONG_MAX);
+        return _isValidBSTHelper(root, LONG_MIN, LONG_MAX);
     }
 };
