@@ -1,19 +1,47 @@
 class Solution {
 public:
-    int orangesRotting(vector<vector<int>>& grid) {
-        int m = grid.size();
-        int n = grid[0].size();
+    int bfs(vector<vector<int>>& grid, queue<vector<int>>& q, int& res) {
+        vector<pair<int, int>> dirs={
+            {-1, 0}, {1, 0}, {0, -1}, {0, 1}
+        };
 
-        queue<pair<int,int>> q;
-        int fresh = 0;
+        int changed=0;
+
+        while(!q.empty()) {
+            int n=q.size();
+            res++;
+
+            for(int i=0; i<n; i++) {
+                int x=q.front()[0], y=q.front()[1];
+                q.pop();
+
+                for(auto& [X, Y]: dirs) {
+                    int xNew=x+X, yNew=y+Y;
+
+                    if(xNew>=0 && xNew<grid.size() && yNew>=0 && yNew<grid[0].size() && grid[xNew][yNew]==1) {
+                        q.push({xNew, yNew});
+                        grid[xNew][yNew]=2;      
+                        changed++;
+                    }
+                }
+            }
+        }
+
+        return changed;
+    }
+
+    int orangesRotting(vector<vector<int>>& grid) {
+        int m=grid.size(), n=grid[0].size(), rotten=0, fresh=0;
+
+        queue<vector<int>> q;
 
         for(int i=0; i<m; i++) {
             for(int j=0; j<n; j++) {
-                int o=grid[i][j];
-                if(o==1) {
-                    fresh++;
-                } else if(o==2) {
+                if(grid[i][j]==2) {
                     q.push({i, j});
+                    rotten++;
+                }else if(grid[i][j]==1) {
+                    fresh++;
                 }
             }
         }
@@ -23,41 +51,13 @@ public:
         }
 
         int res=-1;
+        
+        int changed=bfs(grid, q, res);
 
-        vector<pair<int, int>> dirs={
-            {1, 0},
-            {-1, 0},
-            {0, 1},
-            {0, -1}
-        };
-
-        while(!q.empty()) {
-            int sz=q.size();
-            res++;
-
-            for(int i=0; i<sz; i++) {
-                int currRow=q.front().first;
-                int currCol=q.front().second;
-                q.pop();
-
-                for(pair<int, int>& dir: dirs) {
-                    int newRow=currRow+dir.first;
-                    int newCol=currCol+dir.second;
-
-                    if(newRow>=0 && newRow<m && newCol>=0 && newCol<n && grid[newRow][newCol]==1) {
-                        q.push({newRow, newCol});        
-                        grid[newRow][newCol]=2;                    
-                        fresh--;
-                    }
-                }
-
-            }
+        if(changed!=fresh) {
+            return -1;
         }
 
-        if(fresh==0) {
-            return res;
-        }
-
-        return -1;
+        return res;
     }
 };
